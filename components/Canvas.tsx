@@ -7,13 +7,16 @@ const Canvas = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = window.innerWidth * 2;
-    canvas.height = window.innerHeight * 2;
-    canvas.style.width = `${window.innerWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
+    const width = window.innerWidth * 0.9;
+    const height = window.innerHeight * 0.9;
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    canvas.width = width * devicePixelRatio;
+    canvas.height = height * devicePixelRatio;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
 
     const ctx = canvas.getContext('2d')!;
-    ctx.scale(2, 2);
+    ctx.scale(devicePixelRatio, devicePixelRatio);
     ctx.lineCap = 'round';
     ctx.strokeStyle = '#000';
     ctx.lineWidth = 5;
@@ -30,7 +33,6 @@ const Canvas = () => {
   const handleMouseUp: MouseEventHandler = (e) => {
     ctxRef.current.closePath();
     setIsDrawing(false);
-    console.log(e);
   };
 
   const handleMouseMove: MouseEventHandler = ({ nativeEvent }) => {
@@ -42,7 +44,7 @@ const Canvas = () => {
 
   return (
     <canvas
-      className='bg-white'
+      className='bg-white w-11/12 h-11/12'
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
