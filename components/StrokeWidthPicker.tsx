@@ -1,10 +1,11 @@
 import React, { FC, useMemo } from 'react';
 
 interface IProps {
+  strokeWidth: number;
   setStrokeWidth: (strokeWidth: number) => void;
 }
 
-const StrokeWidthPicker: FC<IProps> = ({ setStrokeWidth }) => {
+const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
     setStrokeWidth(Number(value));
@@ -15,7 +16,12 @@ const StrokeWidthPicker: FC<IProps> = ({ setStrokeWidth }) => {
   }, []);
 
   return (
-    <select name='strokeWidth' id='strokeWidth' onChange={handleSelectChange}>
+    <select
+      defaultValue={strokeWidth}
+      name='strokeWidth'
+      id='strokeWidth'
+      onChange={handleSelectChange}
+    >
       {options.map((option) => (
         <option key={option} value={option}>
           {option}

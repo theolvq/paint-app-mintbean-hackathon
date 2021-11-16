@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import Cursor from './Cursor';
 
 interface IProps {
   color: string;
@@ -15,6 +16,8 @@ const Canvas: FC<IProps> = ({ color, strokeWidth }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null!);
   const ctxRef = useRef<CanvasRenderingContext2D>(null!);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [cursorHidden, setCursorHidden] = useState(true);
 
   // Initialize the canvas
   useEffect(() => {
@@ -52,20 +55,40 @@ const Canvas: FC<IProps> = ({ color, strokeWidth }) => {
   };
 
   const handleMouseMove: MouseEventHandler = ({ nativeEvent }) => {
+    const { offsetX, offsetY, clientX, clientY } = nativeEvent;
+    setCursorPosition({ x: clientX, y: clientY });
     if (!isDrawing) return;
-    const { offsetX, offsetY } = nativeEvent;
     ctxRef.current.lineTo(offsetX, offsetY);
     ctxRef.current.stroke();
   };
 
+  const handleCursorEnter = () => {
+    setCursorHidden(false);
+  };
+
+  const handleCursorLeave = () => {
+    setCursorHidden(true);
+    setIsDrawing(false);
+  };
+
   return (
-    <canvas
-      className='bg-white w-11/12 h-11/12'
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseMove={handleMouseMove}
-      ref={canvasRef}
-    />
+    <>
+      <Cursor
+        cursorPosition={cursorPosition}
+        cursorHidden={cursorHidden}
+        strokeWidth={strokeWidth}
+        color={color}
+      />
+      <canvas
+        className='bg-white w-11/12 h-11/12'
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleCursorEnter}
+        onMouseLeave={handleCursorLeave}
+        ref={canvasRef}
+      />
+    </>
   );
 };
 

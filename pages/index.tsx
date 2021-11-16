@@ -20,7 +20,10 @@ const Home: NextPage = () => {
       <main className='bg-gray-700 text-white min-h-screen flex flex-col justify-center items-center'>
         <h1>Hello Canvas</h1>
         <ColorPicker color={color} setColor={setColor} />
-        <StrokeWidthPicker setStrokeWidth={setStrokeWidth} />
+        <StrokeWidthPicker
+          strokeWidth={strokeWidth}
+          setStrokeWidth={setStrokeWidth}
+        />
         <Canvas color={color} strokeWidth={strokeWidth} />
       </main>
     </>
