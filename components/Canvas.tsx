@@ -1,10 +1,22 @@
-import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import React, {
+  FC,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
-const Canvas = () => {
+interface IProps {
+  color: string;
+  strokeWidth: number;
+}
+
+const Canvas: FC<IProps> = ({ color, strokeWidth }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null!);
   const ctxRef = useRef<CanvasRenderingContext2D>(null!);
   const [isDrawing, setIsDrawing] = useState(false);
 
+  // Initialize the canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     const width = window.innerWidth * 0.9;
@@ -14,14 +26,18 @@ const Canvas = () => {
     canvas.height = height * devicePixelRatio;
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
+  }, []);
 
+  // Initialize the context and allow for color picking
+  useEffect(() => {
+    const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d')!;
     ctx.scale(devicePixelRatio, devicePixelRatio);
     ctx.lineCap = 'round';
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 5;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = strokeWidth;
     ctxRef.current = ctx;
-  }, []);
+  }, [color, strokeWidth]);
 
   const handleMouseDown: MouseEventHandler = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;

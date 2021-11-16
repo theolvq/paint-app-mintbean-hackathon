@@ -1,9 +1,15 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useState } from 'react';
 import Canvas from '../components/Canvas';
+import ColorPicker from '../components/ColorPicker';
+import StrokeWidthPicker from '../components/StrokeWidthPicker';
 
 const Home: NextPage = () => {
+  const [color, setColor] = useState('#000000');
+  const [strokeWidth, setStrokeWidth] = useState(5);
+
   return (
     <>
       <Head>
@@ -13,7 +19,9 @@ const Home: NextPage = () => {
       </Head>
       <main className='bg-gray-700 text-white min-h-screen flex flex-col justify-center items-center'>
         <h1>Hello Canvas</h1>
-        <Canvas />
+        <ColorPicker color={color} setColor={setColor} />
+        <StrokeWidthPicker setStrokeWidth={setStrokeWidth} />
+        <Canvas color={color} strokeWidth={strokeWidth} />
       </main>
     </>
   );
