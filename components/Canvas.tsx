@@ -15,6 +15,7 @@ interface IProps {
 const Canvas: FC<IProps> = ({ color, strokeWidth }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null!);
   const ctxRef = useRef<CanvasRenderingContext2D>(null!);
+
   const [isDrawing, setIsDrawing] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [cursorHidden, setCursorHidden] = useState(true);
@@ -31,7 +32,7 @@ const Canvas: FC<IProps> = ({ color, strokeWidth }) => {
     canvas.style.height = `${height}px`;
   }, []);
 
-  // Initialize the context and allow for color picking
+  // Initialize the context and allow for color picking, strokeWidth picking
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d')!;
@@ -44,9 +45,10 @@ const Canvas: FC<IProps> = ({ color, strokeWidth }) => {
 
   const handleMouseDown: MouseEventHandler = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
+
+    setIsDrawing(true);
     ctxRef.current.beginPath();
     ctxRef.current.moveTo(offsetX, offsetY);
-    setIsDrawing(true);
   };
 
   const handleMouseUp: MouseEventHandler = (e) => {

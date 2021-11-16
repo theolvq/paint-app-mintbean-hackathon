@@ -13,16 +13,16 @@ const Cursor: FC<IProps> = ({
   strokeWidth,
   color,
 }) => {
-  const cursorWidth = strokeWidth * 1.25;
+  const cursorRadius = strokeWidth * 1.5;
   return (
     <div
       className={`cursor ${cursorHidden ? 'hidden' : 'block'}`}
       style={{
-        width: cursorWidth,
-        height: cursorWidth,
-        border: `1px solid ${color}`,
-        left: cursorPosition.x - cursorWidth,
-        top: cursorPosition.y - cursorWidth,
+        width: cursorRadius,
+        height: cursorRadius,
+        border: `1px solid ${color !== '#fff' ? color : '#000'}`,
+        left: cursorPosition.x - cursorRadius / 2,
+        top: cursorPosition.y - cursorRadius / 2,
       }}
     />
   );
