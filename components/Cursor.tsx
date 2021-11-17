@@ -13,7 +13,7 @@ const Cursor: FC<IProps> = ({
   strokeWidth,
   color,
 }) => {
-  const cursorRadius = strokeWidth * 1.5;
+  const cursorRadius = strokeWidth;
   return (
     <div
       className={`cursor ${cursorHidden ? 'hidden' : 'block'}`}

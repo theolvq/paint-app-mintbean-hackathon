@@ -39,9 +39,22 @@ const Canvas: FC<IProps> = ({ color, strokeWidth }) => {
     ctx.scale(devicePixelRatio, devicePixelRatio);
     ctx.lineCap = 'round';
     ctx.strokeStyle = color;
+    ctx.fillStyle = color;
     ctx.lineWidth = strokeWidth;
+    ctx.lineJoin = 'bevel';
     ctxRef.current = ctx;
   }, [color, strokeWidth]);
+
+  // const handleClick: MouseEventHandler = ({ nativeEvent }) => {
+  //   const { offsetX, offsetY } = nativeEvent;
+  //   if (isDrawing) return;
+  //   setIsDrawing(true);
+  //   ctxRef.current.beginPath();
+  //   ctxRef.current.arc(offsetX, offsetY, strokeWidth, 0, 2 * Math.PI);
+  //   // ctxRef.current.fillRect(offsetX, offsetY, strokeWidth, strokeWidth);
+  //   ctxRef.current.closePath();
+  //   setIsDrawing(false);
+  // };
 
   const handleMouseDown: MouseEventHandler = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
@@ -83,6 +96,7 @@ const Canvas: FC<IProps> = ({ color, strokeWidth }) => {
       />
       <canvas
         className='bg-white w-11/12 h-11/12'
+        // onClick={handleClick}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}

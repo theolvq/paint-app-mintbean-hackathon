@@ -7,7 +7,11 @@ interface IProps {
 }
 
 const ColorPicker: React.FC<IProps> = ({ color, setColor }) => {
-  return <HexColorPicker color={color} onChange={setColor} />;
+  return (
+    <div id='color-picker' className='absolute left-full top-4 '>
+      <HexColorPicker color={color} onChange={setColor} defaultValue={color} />
+    </div>
+  );
 };
 
 export default ColorPicker;

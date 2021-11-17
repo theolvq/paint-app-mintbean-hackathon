@@ -14,4 +14,18 @@
     position: fixed;
     pointer-events: none;
   }
+
+  .tooltip-arrow {
+    @apply border-gray-600;
+    position: absolute;
+    left: -1rem;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 0.5rem solid hsla(330, 70%, 98%, 1);
+    /* border-top-color: hsla(330, 70%, 98%, 1); */
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+  }
 }
