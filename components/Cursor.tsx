@@ -16,15 +16,18 @@ const Cursor: FC<IProps> = ({
   lineCap,
 }) => {
   const cursorRadius = strokeWidth;
-  const cursorStyle = lineCap === 'round' ? 'rounded-full' : 'rounded-none';
+  const cursorLineCap = lineCap === 'round' ? 'rounded-full' : 'rounded-none';
+  const cursorVisibility = cursorHidden ? 'invisible' : 'visible';
+  const isEraser = color !== '#ffffff';
 
   return (
     <div
-      className={`cursor  ${cursorStyle}  ${cursorHidden ? 'hidden' : 'block'}`}
+      className={`cursor ${cursorLineCap} ${cursorVisibility}`}
       style={{
         width: cursorRadius,
         height: cursorRadius,
-        border: `1px solid ${color !== '#fff' ? color : '#000'}`,
+        border: `1px solid ${isEraser ? color : '#c5c5c5'}`,
+        backgroundColor: isEraser ? '#11ffee00' : '#c5c5c5',
         left: cursorPosition.x - cursorRadius / 2,
         top: cursorPosition.y - cursorRadius / 2,
       }}

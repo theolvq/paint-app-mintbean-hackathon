@@ -23,21 +23,25 @@ const Toolbar: FC<IProps> = ({
 }) => {
   const [showColorPicker, setShowColorPicker] = useState(false);
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      // if (!showColorPicker) return;
-      setShowColorPicker(false);
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleClickOutside = (e) => {
+  //     if (e?.target?.id === 'color-btn') return;
+  //     setShowColorPicker(false);
+  //   };
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, []);
+
+  const handlebuttonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setShowColorPicker((prev) => !prev);
+  };
 
   return (
     <div className='self-start flex flex-col'>
       <div className='relative'>
-        <button onClick={() => setShowColorPicker(!showColorPicker)}>
+        <button id='color-btn' onClick={handlebuttonClick}>
           Color Picker
         </button>
         {showColorPicker && <ColorPicker color={color} setColor={setColor} />}
@@ -47,7 +51,13 @@ const Toolbar: FC<IProps> = ({
         strokeWidth={strokeWidth}
         setStrokeWidth={setStrokeWidth}
       />
-      <Eraser setColor={setColor} />
+      <Eraser
+        setColor={setColor}
+        lineCap={lineCap}
+        setLineCap={setLineCap}
+        color={color}
+      />
+      <button>Clear</button>
     </div>
   );
 };

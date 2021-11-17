@@ -12,12 +12,17 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
   };
 
   const options = useMemo(() => {
-    return Array.from({ length: 30 }, (_, i) => i * 2);
+    return Array.from({ length: 30 }, (n, i) => i * 4).filter((el, i) => {
+      if ((i !== 0 && i <= 13) || (i > 13 && i % 2 === 0)) {
+        return true;
+      }
+      return false;
+    });
   }, []);
 
   return (
     <select
-      className='bg-gray-600'
+      className='bg-gray-600 w-'
       defaultValue={strokeWidth}
       name='strokeWidth'
       id='strokeWidth'

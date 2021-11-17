@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Canvas from '../components/Canvas';
 import ColorPicker from '../components/ColorPicker';
 import Eraser from '../components/Eraser';
@@ -9,7 +9,7 @@ import Toolbar from '../components/Toolbar';
 
 const Home: NextPage = () => {
   const [color, setColor] = useState('#000000');
-  const [strokeWidth, setStrokeWidth] = useState(6);
+  const [strokeWidth, setStrokeWidth] = useState(12);
   const [lineCap, setLineCap] = useState<CanvasLineCap>('round');
 
   return (
