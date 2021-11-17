@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import ColorPicker from './ColorPicker';
 import Eraser from './Eraser';
 import LineCapPicker from './LineCapPicker';
+import ShapePicker from './ShapePicker';
 import StrokeWidthPicker from './StrokeWidthPicker';
 
 interface IProps {
@@ -11,6 +12,8 @@ interface IProps {
   setStrokeWidth: (strokeWidth: number) => void;
   lineCap: CanvasLineCap;
   setLineCap: (lineCap: CanvasLineCap) => void;
+  shape: string;
+  setShape: (shape: string) => void;
 }
 
 const Toolbar: FC<IProps> = ({
@@ -20,19 +23,10 @@ const Toolbar: FC<IProps> = ({
   setStrokeWidth,
   lineCap,
   setLineCap,
+  shape,
+  setShape,
 }) => {
   const [showColorPicker, setShowColorPicker] = useState(false);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (e) => {
-  //     if (e?.target?.id === 'color-btn') return;
-  //     setShowColorPicker(false);
-  //   };
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, []);
 
   const handlebuttonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setShowColorPicker((prev) => !prev);
@@ -58,6 +52,7 @@ const Toolbar: FC<IProps> = ({
         color={color}
       />
       <button>Clear</button>
+      <ShapePicker shape={shape} setShape={setShape} />
     </div>
   );
 };

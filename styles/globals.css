@@ -12,6 +12,7 @@
   .cursor {
     position: fixed;
     pointer-events: none;
+    z-index: 100;
   }
   .round {
     border-radius: 100%;
