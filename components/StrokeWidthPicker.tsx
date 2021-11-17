@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
     setStrokeWidth(Number(value));
   };
@@ -21,7 +21,7 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
       defaultValue={strokeWidth}
       name='strokeWidth'
       id='strokeWidth'
-      onChange={handleSelectChange}
+      onChange={handleSelect}
     >
       {options.map((option) => (
         <option key={option} value={option}>

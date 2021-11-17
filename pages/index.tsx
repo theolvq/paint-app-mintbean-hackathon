@@ -9,7 +9,8 @@ import Toolbar from '../components/Toolbar';
 
 const Home: NextPage = () => {
   const [color, setColor] = useState('#000000');
-  const [strokeWidth, setStrokeWidth] = useState(5);
+  const [strokeWidth, setStrokeWidth] = useState(6);
+  const [lineCap, setLineCap] = useState<CanvasLineCap>('round');
 
   return (
     <>
@@ -24,8 +25,10 @@ const Home: NextPage = () => {
           setColor={setColor}
           strokeWidth={strokeWidth}
           setStrokeWidth={setStrokeWidth}
+          lineCap={lineCap}
+          setLineCap={setLineCap}
         />
-        <Canvas color={color} strokeWidth={strokeWidth} />
+        <Canvas color={color} strokeWidth={strokeWidth} lineCap={lineCap} />
       </main>
     </>
   );

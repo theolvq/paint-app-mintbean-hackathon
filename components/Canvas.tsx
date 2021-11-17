@@ -10,9 +10,10 @@ import Cursor from './Cursor';
 interface IProps {
   color: string;
   strokeWidth: number;
+  lineCap: CanvasLineCap;
 }
 
-const Canvas: FC<IProps> = ({ color, strokeWidth }) => {
+const Canvas: FC<IProps> = ({ color, strokeWidth, lineCap }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null!);
   const ctxRef = useRef<CanvasRenderingContext2D>(null!);
 
@@ -37,13 +38,13 @@ const Canvas: FC<IProps> = ({ color, strokeWidth }) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d')!;
     ctx.scale(devicePixelRatio, devicePixelRatio);
-    ctx.lineCap = 'round';
+    ctx.lineCap = lineCap;
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
     ctx.lineWidth = strokeWidth;
-    ctx.lineJoin = 'bevel';
+    // ctx.lineJoin = 'bevel';
     ctxRef.current = ctx;
-  }, [color, strokeWidth]);
+  }, [color, strokeWidth, lineCap]);
 
   // const handleClick: MouseEventHandler = ({ nativeEvent }) => {
   //   const { offsetX, offsetY } = nativeEvent;
@@ -93,6 +94,7 @@ const Canvas: FC<IProps> = ({ color, strokeWidth }) => {
         cursorHidden={cursorHidden}
         strokeWidth={strokeWidth}
         color={color}
+        lineCap={lineCap}
       />
       <canvas
         className='bg-white w-11/12 h-11/12'

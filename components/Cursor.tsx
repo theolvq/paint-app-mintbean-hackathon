@@ -5,6 +5,7 @@ interface IProps {
   cursorHidden: boolean;
   strokeWidth: number;
   color: string;
+  lineCap: CanvasLineCap;
 }
 
 const Cursor: FC<IProps> = ({
@@ -12,11 +13,14 @@ const Cursor: FC<IProps> = ({
   cursorHidden,
   strokeWidth,
   color,
+  lineCap,
 }) => {
   const cursorRadius = strokeWidth;
+  const cursorStyle = lineCap === 'round' ? 'rounded-full' : 'rounded-none';
+
   return (
     <div
-      className={`cursor ${cursorHidden ? 'hidden' : 'block'}`}
+      className={`cursor  ${cursorStyle}  ${cursorHidden ? 'hidden' : 'block'}`}
       style={{
         width: cursorRadius,
         height: cursorRadius,
