@@ -11,7 +11,11 @@ const ShapePicker: FC<IProps> = ({ shape, setShape }) => {
     setShape(value);
   };
   return (
-    <select className='bg-gray-600' onChange={handleSelect}>
+    <select
+      className='bg-gray-600'
+      onChange={handleSelect}
+      defaultValue={shape}
+    >
       <option value='rectangle'>rectangle</option>
       <option value='line'>line</option>
       <option value='circle'>circle</option>

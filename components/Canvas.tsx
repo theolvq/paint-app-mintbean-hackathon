@@ -99,6 +99,53 @@ const Canvas: FC<IProps> = ({ color, strokeWidth, lineCap, shape }) => {
     overlayCtxRef.current.closePath();
   };
 
+  // Circle Drawing Functions
+  const drawCircleStart = (x: number, y: number) => {
+    setStartPosition({ x, y });
+  };
+
+  const drawCircleMove = (x: number, y: number) => {
+    if (!startPosition.x || !startPosition.y) return;
+    ctxRef.current.beginPath();
+    const circle = new Path2D();
+    circle.arc(
+      startPosition.x,
+      startPosition.y,
+      Math.abs(x - startPosition.x),
+      0,
+      Math.PI * 2,
+    );
+    ctxRef.current.clip(circle);
+    ctxRef.current.clearRect(
+      0,
+      0,
+      canvasRef.current.width,
+      canvasRef.current.height,
+    );
+    // ctxRef.current.arc(
+    //   startPosition.x,
+    //   startPosition.y,
+    //   Math.abs(x - startPosition.x),
+    //   0,
+    //   Math.PI * 2,
+    // );
+    ctxRef.current.stroke();
+  };
+
+  const drawCircleEnd = (x: number, y: number) => {
+    if (!startPosition.x || !startPosition.y) return;
+    overlayCtxRef.current.beginPath();
+    overlayCtxRef.current.arc(
+      startPosition.x,
+      startPosition.y,
+      Math.abs(x - startPosition.x),
+      0,
+      Math.PI * 2,
+    );
+    overlayCtxRef.current.stroke();
+    setStartPosition({ x: null, y: null });
+  };
+
   // Rectangle drawing functions
   const drawRectangleStart = (x: number, y: number) => {
     setStartPosition({ x, y });
@@ -140,6 +187,9 @@ const Canvas: FC<IProps> = ({ color, strokeWidth, lineCap, shape }) => {
     if (shape === 'rectangle') {
       drawRectangleStart(offsetX, offsetY);
     }
+    if (shape === 'circle') {
+      drawCircleStart(offsetX, offsetY);
+    }
   };
 
   const handleMouseUp: MouseEventHandler = ({ nativeEvent }) => {
@@ -149,6 +199,9 @@ const Canvas: FC<IProps> = ({ color, strokeWidth, lineCap, shape }) => {
     }
     if (shape === 'rectangle') {
       drawRectangleEnd(offsetX, offsetY);
+    }
+    if (shape === 'circle') {
+      drawCircleEnd(offsetX, offsetY);
     }
     setIsDrawing(false);
   };
@@ -163,6 +216,9 @@ const Canvas: FC<IProps> = ({ color, strokeWidth, lineCap, shape }) => {
     }
     if (shape === 'rectangle') {
       drawRectangleMove(offsetX, offsetY);
+    }
+    if (shape === 'circle') {
+      drawCircleMove(offsetX, offsetY);
     }
   };
 
