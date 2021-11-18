@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  canvas {
+  /* canvas {
     cursor: none;
-  }
+  } */
 }
 
 @layer components {

@@ -1,11 +1,16 @@
 import React, { useState, useEffect, FC } from 'react';
 
 interface IProps {
-  cursorPosition: { x: number; y: number };
+  cursorPosition: PositionArgs;
   cursorHidden: boolean;
   strokeWidth: number;
   color: string;
   lineCap: CanvasLineCap;
+}
+
+interface PositionArgs {
+  x: number | null;
+  y: number | null;
 }
 
 const Cursor: FC<IProps> = ({
@@ -28,8 +33,8 @@ const Cursor: FC<IProps> = ({
         height: cursorRadius,
         border: `1px solid ${isEraser ? color : '#c5c5c5'}`,
         backgroundColor: isEraser ? '#11ffee00' : '#c5c5c5',
-        left: cursorPosition.x - cursorRadius / 2,
-        top: cursorPosition.y - cursorRadius / 2,
+        left: cursorPosition.x! - cursorRadius / 2,
+        top: cursorPosition.y! - cursorRadius / 2,
       }}
     />
   );

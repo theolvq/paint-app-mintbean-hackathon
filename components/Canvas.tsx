@@ -1,260 +1,104 @@
-import React, {
-  FC,
-  MouseEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import Cursor from './Cursor';
+import { KonvaEventObject } from 'konva/lib/Node';
+import { Vector2d } from 'konva/lib/types';
+import React, { FC, useState } from 'react';
+import { Stage, Layer, Line, Text, Rect } from 'react-konva';
+
+interface ILine {
+  tool: string;
+  points: number[];
+}
+
+interface IRect {
+  tool: string;
+  points: number[];
+  width: number;
+  height: number;
+}
 
 interface IProps {
   color: string;
   strokeWidth: number;
-  lineCap: CanvasLineCap;
+  lineCap: string;
   shape: string;
 }
 
-interface PositionArgs {
-  x: number | null;
-  y: number | null;
-}
-
-const Canvas: FC<IProps> = ({ color, strokeWidth, lineCap, shape }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null!);
-  const overlayRef = useRef<HTMLCanvasElement>(null!);
-  const ctxRef = useRef<CanvasRenderingContext2D>(null!);
-  const overlayCtxRef = useRef<CanvasRenderingContext2D>(null!);
-
+const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
+  const [tool, setTool] = useState('pen');
+  const [lines, setLines] = useState<ILine[]>([]);
+  const [rects, setRects] = useState<IRect[]>([]);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [cursorHidden, setCursorHidden] = useState(true); // custom cursor logic
-  const [startPosition, setStartPosition] = useState<PositionArgs>({
-    x: null,
-    y: null,
-  });
 
-  const clearCanvas = () => {
-    ctxRef.current.clearRect(
-      0,
-      0,
-      canvasRef.current.width,
-      canvasRef.current.height,
-    );
+  const startLine = (pointerPosition: Vector2d) => {
+    setLines((prev: ILine[]) => [
+      ...prev,
+      { tool, points: [pointerPosition.x, pointerPosition.y] },
+    ]);
   };
 
-  // Initialize the canvas
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const overlay = overlayRef.current;
-    const width = window.innerWidth * 0.9;
-    const height = window.innerHeight * 0.9;
-    const devicePixelRatio = window.devicePixelRatio || 1;
-    canvas.width = width * devicePixelRatio;
-    canvas.height = height * devicePixelRatio;
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    overlay.width = width * devicePixelRatio;
-    overlay.height = height * devicePixelRatio;
-    overlay.style.width = `${width}px`;
-    overlay.style.height = `${height}px`;
-    const ctx = canvas.getContext('2d')!;
-    const overlayCtx = overlay.getContext('2d')!;
-    ctx.scale(devicePixelRatio, devicePixelRatio);
-    overlayCtx.scale(devicePixelRatio, devicePixelRatio);
-  }, []);
+  const drawLine = (pointerPosition: Vector2d) => {
+    const lastLine = lines.at(-1)!;
+    lastLine.points = lastLine.points.concat([
+      pointerPosition.x,
+      pointerPosition.y,
+    ]);
 
-  // Initialize the context and allow for color, strokeWidth and lineCap picking
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d')!;
-    ctx.lineCap = lineCap;
-    ctx.strokeStyle = color;
-    ctx.fillStyle = color;
-    ctx.lineWidth = strokeWidth;
-    ctxRef.current = ctx;
-
-    const overlay = overlayRef.current;
-    const overlayCtx = overlay.getContext('2d')!;
-    overlayCtx.lineCap = lineCap;
-    overlayCtx.strokeStyle = color;
-    overlayCtx.fillStyle = color;
-    overlayCtx.lineWidth = strokeWidth;
-    overlayCtxRef.current = overlayCtx;
-  }, [color, strokeWidth, lineCap]);
-
-  // Line drawing functions
-  const drawLineStart = (x: number, y: number) => {
-    overlayCtxRef.current.beginPath();
-    overlayCtxRef.current.moveTo(x, y);
-    overlayCtxRef.current.lineTo(x, y);
-    overlayCtxRef.current.stroke();
+    lines.splice(lines.length - 1, 1, lastLine);
+    setLines(lines.concat());
   };
 
-  const drawLineMove = (x: number, y: number) => {
-    overlayCtxRef.current.lineTo(x, y);
-    overlayCtxRef.current.stroke();
-  };
-
-  const drawLineEnd = () => {
-    overlayCtxRef.current.closePath();
-  };
-
-  // Circle Drawing Functions
-  const drawCircleStart = (x: number, y: number) => {
-    setStartPosition({ x, y });
-  };
-
-  const drawCircleMove = (x: number, y: number) => {
-    if (!startPosition.x || !startPosition.y) return;
-    ctxRef.current.beginPath();
-    const circle = new Path2D();
-    circle.arc(
-      startPosition.x,
-      startPosition.y,
-      Math.abs(x - startPosition.x),
-      0,
-      Math.PI * 2,
-    );
-    ctxRef.current.clip(circle);
-    ctxRef.current.clearRect(
-      0,
-      0,
-      canvasRef.current.width,
-      canvasRef.current.height,
-    );
-    // ctxRef.current.arc(
-    //   startPosition.x,
-    //   startPosition.y,
-    //   Math.abs(x - startPosition.x),
-    //   0,
-    //   Math.PI * 2,
-    // );
-    ctxRef.current.stroke();
-  };
-
-  const drawCircleEnd = (x: number, y: number) => {
-    if (!startPosition.x || !startPosition.y) return;
-    overlayCtxRef.current.beginPath();
-    overlayCtxRef.current.arc(
-      startPosition.x,
-      startPosition.y,
-      Math.abs(x - startPosition.x),
-      0,
-      Math.PI * 2,
-    );
-    overlayCtxRef.current.stroke();
-    setStartPosition({ x: null, y: null });
-  };
-
-  // Rectangle drawing functions
-  const drawRectangleStart = (x: number, y: number) => {
-    setStartPosition({ x, y });
-  };
-
-  const drawRectangleMove = (x: number, y: number) => {
-    if (!startPosition.x || !startPosition.y) return;
-    const width = x - startPosition.x;
-    const height = y - startPosition.y;
-    ctxRef.current.clearRect(
-      0,
-      0,
-      canvasRef.current.width,
-      canvasRef.current.height,
-    );
-    ctxRef.current.strokeRect(startPosition.x, startPosition.y, width, height);
-  };
-
-  const drawRectangleEnd = (x: number, y: number) => {
-    if (!startPosition.x || !startPosition.y) return;
-    const width = x - startPosition.x;
-    const height = y - startPosition.y;
-    overlayCtxRef.current.strokeRect(
-      startPosition.x,
-      startPosition.y,
-      width,
-      height,
-    );
-    setStartPosition({ x: null, y: null });
-  };
-
-  // Event Handlers
-  const handleMouseDown: MouseEventHandler = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
+  const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
     setIsDrawing(true);
-    if (shape === 'line') {
-      drawLineStart(offsetX, offsetY);
-    }
-    if (shape === 'rectangle') {
-      drawRectangleStart(offsetX, offsetY);
-    }
-    if (shape === 'circle') {
-      drawCircleStart(offsetX, offsetY);
-    }
+    const pointerPosition = e.target.getStage()!.getPointerPosition()!;
+    startLine(pointerPosition);
   };
 
-  const handleMouseUp: MouseEventHandler = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
-    if (shape === 'line') {
-      drawLineEnd();
+  const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
+    if (!isDrawing) {
+      return;
     }
-    if (shape === 'rectangle') {
-      drawRectangleEnd(offsetX, offsetY);
-    }
-    if (shape === 'circle') {
-      drawCircleEnd(offsetX, offsetY);
-    }
-    setIsDrawing(false);
+    const pointerPosition = e.target.getStage()!.getPointerPosition()!;
+    drawLine(pointerPosition);
   };
 
-  const handleMouseMove: MouseEventHandler = ({ nativeEvent }) => {
-    const { offsetX, offsetY, clientX, clientY } = nativeEvent;
-    setCursorPosition({ x: clientX, y: clientY });
-    if (!isDrawing) return;
-
-    if (shape === 'line') {
-      drawLineMove(offsetX, offsetY);
-    }
-    if (shape === 'rectangle') {
-      drawRectangleMove(offsetX, offsetY);
-    }
-    if (shape === 'circle') {
-      drawCircleMove(offsetX, offsetY);
-    }
-  };
-
-  const handleCursorEnter = () => {
-    setCursorHidden(false);
-  };
-
-  const handleCursorLeave = () => {
-    setCursorHidden(true);
+  const handleMouseUp = () => {
     setIsDrawing(false);
   };
 
   return (
     <div>
-      <Cursor
-        cursorPosition={cursorPosition}
-        cursorHidden={cursorHidden}
-        strokeWidth={strokeWidth}
-        color={color}
-        lineCap={lineCap}
-      />
-      <div className='relative'>
-        <canvas
-          ref={overlayRef}
-          className='bg-white w-11/12 h-11/12 absolute top-8'
-        />
-        <canvas
-          className='bg-transparent w-11/12 h-11/12 absolute top-8'
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseMove={handleMouseMove}
-          onMouseEnter={handleCursorEnter}
-          onMouseLeave={handleCursorLeave}
-          ref={canvasRef}
-        />
-      </div>
+      <Stage
+        className='bg-white'
+        width={window.innerWidth * 0.9}
+        height={window.innerHeight * 0.9}
+        onMouseDown={handleMouseDown}
+        onMousemove={handleMouseMove}
+        onMouseup={handleMouseUp}
+      >
+        <Layer>
+          {lines.map((line, i) => (
+            <Line
+              key={i}
+              points={line.points}
+              stroke='#df4b26'
+              strokeWidth={5}
+              tension={0.5}
+              lineCap='round'
+              globalCompositeOperation={
+                line.tool === 'eraser' ? 'destination-out' : 'source-over'
+              }
+            />
+          ))}
+        </Layer>
+      </Stage>
+      <select
+        value={tool}
+        onChange={(e) => {
+          setTool(e.target.value);
+        }}
+      >
+        <option value='pen'>Pen</option>
+        <option value='eraser'>Eraser</option>
+      </select>
     </div>
   );
 };

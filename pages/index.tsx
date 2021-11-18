@@ -1,7 +1,11 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useState } from 'react';
-import Canvas from '../components/Canvas';
+import dynamic from 'next/dynamic';
+
+const Canvas = dynamic(() => import('../components/Canvas'), {
+  ssr: false,
+});
 
 import Toolbar from '../components/Toolbar';
 
