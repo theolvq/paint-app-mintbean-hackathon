@@ -2,29 +2,29 @@ import React, { FC, useEffect, useState } from 'react';
 import ColorPicker from './ColorPicker';
 import Eraser from './Eraser';
 import LineCapPicker from './LineCapPicker';
-import ShapePicker from './ShapePicker';
+import ToolPicker from './ToolPicker';
 import StrokeWidthPicker from './StrokeWidthPicker';
 
 interface IProps {
-  color: string;
-  setColor: (color: string) => void;
+  strokeColor: string;
+  setStrokeColor: (strokeColor: string) => void;
   strokeWidth: number;
   setStrokeWidth: (strokeWidth: number) => void;
   lineCap: CanvasLineCap;
   setLineCap: (lineCap: CanvasLineCap) => void;
-  shape: string;
-  setShape: (shape: string) => void;
+  tool: string;
+  setTool: (tool: string) => void;
 }
 
 const Toolbar: FC<IProps> = ({
-  color,
-  setColor,
+  strokeColor,
+  setStrokeColor,
   strokeWidth,
   setStrokeWidth,
   lineCap,
   setLineCap,
-  shape,
-  setShape,
+  tool,
+  setTool,
 }) => {
   const [showColorPicker, setShowColorPicker] = useState(false);
 
@@ -38,7 +38,9 @@ const Toolbar: FC<IProps> = ({
         <button id='color-btn' onClick={handlebuttonClick}>
           Color Picker
         </button>
-        {showColorPicker && <ColorPicker color={color} setColor={setColor} />}
+        {showColorPicker && (
+          <ColorPicker color={strokeColor} setColor={setStrokeColor} />
+        )}
       </div>
       <LineCapPicker lineCap={lineCap} setLineCap={setLineCap} />
       <StrokeWidthPicker
@@ -46,13 +48,13 @@ const Toolbar: FC<IProps> = ({
         setStrokeWidth={setStrokeWidth}
       />
       <Eraser
-        setColor={setColor}
+        setColor={setStrokeColor}
         lineCap={lineCap}
         setLineCap={setLineCap}
-        color={color}
+        color={strokeColor}
       />
       <button>Clear</button>
-      <ShapePicker shape={shape} setShape={setShape} />
+      <ToolPicker tool={tool} setTool={setTool} />
     </div>
   );
 };

@@ -10,10 +10,10 @@ const Canvas = dynamic(() => import('../components/Canvas'), {
 import Toolbar from '../components/Toolbar';
 
 const Home: NextPage = () => {
-  const [color, setColor] = useState('#000000');
+  const [strokeColor, setStrokeColor] = useState('#000000');
   const [strokeWidth, setStrokeWidth] = useState(12);
   const [lineCap, setLineCap] = useState<CanvasLineCap>('round');
-  const [shape, setShape] = useState('line');
+  const [tool, setTool] = useState('pen');
 
   return (
     <>
@@ -24,20 +24,20 @@ const Home: NextPage = () => {
       </Head>
       <main className='bg-gray-700 text-white min-h-screen flex'>
         <Toolbar
-          color={color}
-          setColor={setColor}
+          strokeColor={strokeColor}
+          setStrokeColor={setStrokeColor}
           strokeWidth={strokeWidth}
           setStrokeWidth={setStrokeWidth}
           lineCap={lineCap}
           setLineCap={setLineCap}
-          shape={shape}
-          setShape={setShape}
+          tool={tool}
+          setTool={setTool}
         />
         <Canvas
-          color={color}
+          strokeColor={strokeColor}
           strokeWidth={strokeWidth}
           lineCap={lineCap}
-          shape={shape}
+          tool={tool}
         />
       </main>
     </>

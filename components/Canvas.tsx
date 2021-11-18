@@ -6,12 +6,15 @@ import { Stage, Layer, Line, Text, Rect, Circle } from 'react-konva';
 interface ILine {
   tool: string;
   points: number[];
+  strokeColor: string;
+  strokeWidth: number;
 }
 
 interface IBasicShape {
-  shape: string;
   tool: string;
   points: number[];
+  strokeColor: string;
+  strokeWidth: number;
   fill?: string;
   shadowBlur?: number;
   width?: number;
@@ -20,17 +23,15 @@ interface IBasicShape {
 }
 
 interface IProps {
-  color: string;
+  strokeColor: string;
   strokeWidth: number;
   lineCap: string;
-  shape: string;
+  tool: string;
 }
 
-const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
-  const [tool, setTool] = useState('pen');
+const Canvas: FC<IProps> = ({ strokeColor, lineCap, tool, strokeWidth }) => {
   const [lines, setLines] = useState<ILine[]>([]);
-  const [rects, setRects] = useState<IBasicShape[]>([]);
-  const [circles, setCircles] = useState<IBasicShape[]>([]);
+  const [currentShape, setCurrentShape] = useState<IBasicShape[]>([]);
   const [drawnShapes, setDrawnShapes] = useState<IBasicShape[]>([]);
 
   const [startPosition, setStartPosition] = useState<Vector2d>({ x: 0, y: 0 })!;
@@ -39,7 +40,12 @@ const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
   const startLine = (pointerPosition: Vector2d) => {
     setLines((prev: ILine[]) => [
       ...prev,
-      { tool, points: [pointerPosition.x, pointerPosition.y] },
+      {
+        tool,
+        strokeColor,
+        strokeWidth,
+        points: [pointerPosition.x, pointerPosition.y],
+      },
     ]);
   };
 
@@ -48,6 +54,7 @@ const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
   };
 
   const drawLine = (pointerPosition: Vector2d) => {
+    if (!lines.at(-1)) return;
     const lastLine = lines.at(-1)!;
     lastLine.points = lastLine.points.concat([
       pointerPosition.x,
@@ -59,11 +66,12 @@ const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
   };
 
   const drawRect = (pointerPosition: Vector2d) => {
-    setRects((prev: IBasicShape[]) => [
+    setCurrentShape((prev: IBasicShape[]) => [
       ...prev,
       {
-        tool,
-        shape: 'rectangle',
+        tool: 'rectangle',
+        strokeColor,
+        strokeWidth,
         points: [pointerPosition.x, pointerPosition.y],
         width: startPosition.x - pointerPosition.x,
         height: startPosition.y - pointerPosition.y,
@@ -72,13 +80,20 @@ const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
   };
 
   const drawCircle = (pointerPosition: Vector2d) => {
-    setCircles((prev: IBasicShape[]) => [
+    const radius =
+      (Math.abs(startPosition.x - pointerPosition.x) +
+        Math.abs(startPosition.y - pointerPosition.y)) /
+      2;
+
+    setCurrentShape((prev: IBasicShape[]) => [
       ...prev,
       {
         tool,
+        strokeColor,
+        strokeWidth,
         shape: 'circle',
         points: [pointerPosition.x, pointerPosition.y],
-        radius: Math.abs(startPosition.x - pointerPosition.x),
+        radius,
       },
     ]);
   };
@@ -86,7 +101,9 @@ const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
   const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
     setIsDrawing(true);
     const pointerPosition = e.target.getStage()!.getPointerPosition()!;
-    // startLine(pointerPosition);
+    if (tool === 'pen') {
+      startLine(pointerPosition);
+    }
     startShape(pointerPosition);
   };
 
@@ -95,17 +112,21 @@ const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
       return;
     }
     const pointerPosition = e.target.getStage()!.getPointerPosition()!;
-    // drawLine(pointerPosition);
-    // drawRect(pointerPosition);
-    drawCircle(pointerPosition);
+    if (tool === 'pen') {
+      drawLine(pointerPosition);
+    }
+    if (tool === 'rectangle') {
+      drawRect(pointerPosition);
+    }
+    if (tool === 'circle') {
+      drawCircle(pointerPosition);
+    }
   };
 
   const handleMouseUp = () => {
     setIsDrawing(false);
-    setDrawnShapes((prev) => [...prev, circles.at(-1)!]);
-    setCircles([]);
-    // setDrawnShapes((prev) => [...prev, rects.at(-1)!]);
-    // setRects([]);
+    setDrawnShapes((prev) => [...prev, currentShape.at(-1)!]);
+    setCurrentShape([]);
   };
 
   return (
@@ -123,8 +144,8 @@ const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
             <Line
               key={i}
               points={line.points}
-              stroke='#df4b26'
-              strokeWidth={5}
+              stroke={line.strokeColor}
+              strokeWidth={line.strokeWidth}
               tension={0.5}
               lineCap='round'
               globalCompositeOperation={
@@ -132,32 +153,40 @@ const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
               }
             />
           ))}
-          {rects
-            .filter((rect, i) => i >= rects.length - 1)
-            .map((rect, i) => (
-              <Rect
-                key={i}
-                x={rect.points[0]}
-                y={rect.points[1]}
-                width={rect.width}
-                height={rect.height}
-                stroke='#df4b26'
-              />
-            ))}
-          {circles
-            .filter((circle, i) => i >= circles.length - 1)
-            .map((circle, i) => (
-              <Circle
-                key={i}
-                x={circle.points[0]}
-                y={circle.points[1]}
-                radius={circle.radius}
-                stroke='#df4b26'
-              />
-            ))}
+
+          {currentShape
+            .filter((_, i) => i >= currentShape.length - 1)
+            .map((shape, i) => {
+              if (!shape) return null;
+              if (shape.tool === 'rectangle') {
+                return (
+                  <Rect
+                    key={i}
+                    x={shape.points[0]}
+                    y={shape.points[1]}
+                    width={shape.width}
+                    height={shape.height}
+                    stroke={shape.strokeColor}
+                    strokeWidth={shape.strokeWidth}
+                  />
+                );
+              }
+              if (shape.tool === 'circle') {
+                return (
+                  <Circle
+                    key={i}
+                    x={shape.points[0]}
+                    y={shape.points[1]}
+                    radius={shape.radius}
+                    stroke={shape.strokeColor}
+                    strokeWidth={shape.strokeWidth}
+                  />
+                );
+              }
+            })}
           {drawnShapes.map((shape, i) => {
             if (!shape) return null;
-            if (shape.shape === 'rectangle') {
+            if (shape.tool === 'rectangle') {
               return (
                 <Rect
                   key={i}
@@ -165,18 +194,20 @@ const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
                   y={shape.points[1]}
                   width={shape.width}
                   height={shape.height}
-                  stroke='#df4b26'
+                  stroke={shape.strokeColor}
+                  strokeWidth={shape.strokeWidth}
                 />
               );
             }
-            if (shape.shape === 'circle') {
+            if (shape.tool === 'circle') {
               return (
                 <Circle
                   key={i}
                   x={shape.points[0]}
                   y={shape.points[1]}
                   radius={shape.radius}
-                  stroke='#df4b26'
+                  stroke={shape.strokeColor}
+                  strokeWidth={shape.strokeWidth}
                 />
               );
             }
@@ -186,21 +217,5 @@ const Canvas: FC<IProps> = ({ color, lineCap, shape, strokeWidth }) => {
     </div>
   );
 };
-//           />
-//     })}
-//   </Layer>
-// </Stage>
-// <select
-//   value={tool}
-//         onChange={(e) => {
-//           setTool(e.target.value);
-//         }}
-//       >
-//         <option value='pen'>Pen</option>
-//         <option value='eraser'>Eraser</option>
-//       </select>
-//     </div>
-//   );
-// };
 
 export default Canvas;
