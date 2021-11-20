@@ -1,13 +1,14 @@
-import React, { FC, useMemo } from 'react';
-import Image from 'next/image';
-import StrokeWidthIcon from '../assets/icons/stroke-width.svg';
+import React, { Dispatch, FC, SetStateAction, useMemo, useState } from 'react';
+import { MdLineWeight } from 'react-icons/md';
 
 interface IProps {
   strokeWidth: number;
-  setStrokeWidth: (strokeWidth: number) => void;
+  setStrokeWidth: Dispatch<SetStateAction<number>>;
 }
 
 const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
+  const [showPicker, setShowPicker] = useState(false);
+
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
     setStrokeWidth(Number(value));
@@ -23,23 +24,28 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
   }, []);
 
   return (
-    <>
+    <div className='relative'>
       {' '}
-      <button></button>
-      <select
-        className='bg-gray-600 w-'
-        defaultValue={strokeWidth}
-        name='strokeWidth'
-        id='strokeWidth'
-        onChange={handleSelect}
-      >
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    </>
+      <button className='btn' onClick={() => setShowPicker(!showPicker)}>
+        {' '}
+        <MdLineWeight />{' '}
+      </button>
+      {showPicker && (
+        <select
+          className='bg-gray-600 absolute left-full top-4'
+          defaultValue={strokeWidth}
+          name='strokeWidth'
+          id='strokeWidth'
+          onChange={handleSelect}
+        >
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      )}
+    </div>
   );
 };
 

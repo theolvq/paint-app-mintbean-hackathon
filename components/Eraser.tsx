@@ -1,9 +1,12 @@
-import React, { FC, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
+import { mdiEraserVariant } from '@mdi/js';
+import { Icon } from '@mdi/react';
+
 interface IProps {
   color: string;
-  setColor: (color: string) => void;
+  setColor: Dispatch<SetStateAction<string>>;
   lineCap: CanvasLineCap;
-  setLineCap: (lineCap: CanvasLineCap) => void;
+  setLineCap: Dispatch<SetStateAction<CanvasLineCap>>;
 }
 
 const Eraser: FC<IProps> = ({ setColor, lineCap, setLineCap, color }) => {
@@ -22,7 +25,11 @@ const Eraser: FC<IProps> = ({ setColor, lineCap, setLineCap, color }) => {
     }
   };
 
-  return <button onClick={handleClick}>Eraser</button>;
+  return (
+    <button className='btn' onClick={handleClick}>
+      <Icon path={mdiEraserVariant} size='48px' />
+    </button>
+  );
 };
 
 export default Eraser;

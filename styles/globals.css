@@ -16,6 +16,10 @@
     background-color: #11ffee00;
   }
 
+  .btn {
+    @apply flex justify-center items-center  w-12 h-12 text-4xl bg-gray-800 hover:bg-gray-600;
+  }
+
   .tooltip-arrow {
     @apply border-gray-600;
     position: absolute;

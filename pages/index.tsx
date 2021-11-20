@@ -8,12 +8,19 @@ const Canvas = dynamic(() => import('../components/Canvas'), {
 });
 
 import Toolbar from '../components/Toolbar';
+import { IBasicShape, ILine } from '../types';
 
 const Home: NextPage = () => {
   const [strokeColor, setStrokeColor] = useState('#000000');
   const [strokeWidth, setStrokeWidth] = useState(12);
   const [lineCap, setLineCap] = useState<CanvasLineCap>('round');
   const [tool, setTool] = useState('pen');
+  const [lines, setLines] = useState<ILine[]>([]);
+  const [drawnShapes, setDrawnShapes] = useState<IBasicShape[]>([]);
+  const clearCanvas = () => {
+    setDrawnShapes([]);
+    setLines([]);
+  };
 
   return (
     <>
@@ -32,12 +39,17 @@ const Home: NextPage = () => {
           setLineCap={setLineCap}
           tool={tool}
           setTool={setTool}
+          clearCanvas={clearCanvas}
         />
         <Canvas
           strokeColor={strokeColor}
           strokeWidth={strokeWidth}
           lineCap={lineCap}
           tool={tool}
+          lines={lines}
+          setLines={setLines}
+          drawnShapes={drawnShapes}
+          setDrawnShapes={setDrawnShapes}
         />
       </main>
     </>

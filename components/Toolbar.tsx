@@ -1,19 +1,21 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { Dispatch, FC, MouseEventHandler, SetStateAction } from 'react';
 import ColorPicker from './ColorPicker';
 import Eraser from './Eraser';
 import LineCapPicker from './LineCapPicker';
 import ToolPicker from './ToolPicker';
 import StrokeWidthPicker from './StrokeWidthPicker';
+import Delete from './Delete';
 
 interface IProps {
   strokeColor: string;
-  setStrokeColor: (strokeColor: string) => void;
+  setStrokeColor: Dispatch<SetStateAction<string>>;
   strokeWidth: number;
-  setStrokeWidth: (strokeWidth: number) => void;
+  setStrokeWidth: Dispatch<SetStateAction<number>>;
   lineCap: CanvasLineCap;
-  setLineCap: (lineCap: CanvasLineCap) => void;
+  setLineCap: Dispatch<SetStateAction<CanvasLineCap>>;
   tool: string;
-  setTool: (tool: string) => void;
+  setTool: Dispatch<SetStateAction<string>>;
+  clearCanvas: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Toolbar: FC<IProps> = ({
@@ -25,6 +27,7 @@ const Toolbar: FC<IProps> = ({
   setLineCap,
   tool,
   setTool,
+  clearCanvas,
 }) => {
   return (
     <div className='self-start flex flex-col'>
@@ -33,14 +36,14 @@ const Toolbar: FC<IProps> = ({
         strokeWidth={strokeWidth}
         setStrokeWidth={setStrokeWidth}
       />
+      <ToolPicker tool={tool} setTool={setTool} />
       <Eraser
         setColor={setStrokeColor}
         lineCap={lineCap}
         setLineCap={setLineCap}
         color={strokeColor}
       />
-      <button>Clear</button>
-      <ToolPicker tool={tool} setTool={setTool} />
+      <Delete clearCanvas={clearCanvas} />
     </div>
   );
 };

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import { MdPalette } from 'react-icons/md';
 
 interface IProps {
   color: string;
-  setColor: (color: string) => void;
+  setColor: Dispatch<SetStateAction<string>>;
 }
 
 const ColorPicker: React.FC<IProps> = ({ color, setColor }) => {
@@ -13,12 +13,8 @@ const ColorPicker: React.FC<IProps> = ({ color, setColor }) => {
     setShowColorPicker((prev) => !prev);
   };
   return (
-    <div className='relative '>
-      <button
-        id='color-btn'
-        className='flex justify-center items-center  w-12 h-12 text-4xl bg-gray-800 hover:bg-gray-600'
-        onClick={handlebuttonClick}
-      >
+    <div className='relative'>
+      <button id='color-btn' className='btn' onClick={handlebuttonClick}>
         <MdPalette />
       </button>
       {showColorPicker && (

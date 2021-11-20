@@ -1,41 +1,34 @@
 import { KonvaEventObject } from 'konva/lib/Node';
 import { Vector2d } from 'konva/lib/types';
-import React, { FC, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Stage, Layer, Line, Text, Rect, Circle } from 'react-konva';
+import { IBasicShape, ILine } from '../types';
 import Cursor from './Cursor';
-
-interface ILine {
-  tool: string;
-  points: number[];
-  strokeColor: string;
-  strokeWidth: number;
-}
-
-interface IBasicShape {
-  tool: string;
-  points: number[];
-  strokeColor: string;
-  strokeWidth: number;
-  fill?: string;
-  shadowBlur?: number;
-  width?: number;
-  height?: number;
-  radius?: number;
-}
 
 interface IProps {
   strokeColor: string;
   strokeWidth: number;
   lineCap: string;
   tool: string;
+  lines: ILine[];
+  setLines: Dispatch<SetStateAction<ILine[]>>;
+  drawnShapes: IBasicShape[];
+  setDrawnShapes: Dispatch<SetStateAction<IBasicShape[]>>;
 }
 
-const Canvas: FC<IProps> = ({ strokeColor, lineCap, tool, strokeWidth }) => {
+const Canvas: FC<IProps> = ({
+  strokeColor,
+  lineCap,
+  tool,
+  strokeWidth,
+  lines,
+  setLines,
+  drawnShapes,
+  setDrawnShapes,
+}) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [cursorHidden, setCursorHidden] = useState(true);
-  const [lines, setLines] = useState<ILine[]>([]);
   const [currentShape, setCurrentShape] = useState<IBasicShape[]>([]);
-  const [drawnShapes, setDrawnShapes] = useState<IBasicShape[]>([]);
 
   const [startPosition, setStartPosition] = useState<Vector2d>({ x: 0, y: 0 })!;
   const [isDrawing, setIsDrawing] = useState(false);

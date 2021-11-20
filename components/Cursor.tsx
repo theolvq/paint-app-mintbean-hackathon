@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { PositionArgs } from '../types';
 
 interface IProps {
   cursorPosition: PositionArgs;
@@ -6,11 +7,6 @@ interface IProps {
   strokeWidth: number;
   strokeColor: string;
   tool: string;
-}
-
-interface PositionArgs {
-  x: number | null;
-  y: number | null;
 }
 
 const Cursor: FC<IProps> = ({

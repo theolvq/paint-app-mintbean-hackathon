@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 
 interface IProps {
   lineCap: CanvasLineCap;
-  setLineCap: (lineCap: CanvasLineCap) => void;
+  setLineCap: Dispatch<SetStateAction<CanvasLineCap>>;
 }
 
 const LineCapPicker: FC<IProps> = ({ lineCap, setLineCap }) => {
