@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  /* canvas {
+  canvas {
     cursor: none;
-  } */
+  }
 }
 
 @layer components {
@@ -13,13 +13,7 @@
     position: fixed;
     pointer-events: none;
     z-index: 100;
-  }
-  .round {
-    border-radius: 100%;
-  }
-
-  .square {
-    border-radius: 0;
+    background-color: #11ffee00;
   }
 
   .tooltip-arrow {

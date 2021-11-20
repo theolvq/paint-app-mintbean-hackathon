@@ -1,4 +1,6 @@
 import React, { FC, useMemo } from 'react';
+import Image from 'next/image';
+import StrokeWidthIcon from '../assets/icons/stroke-width.svg';
 
 interface IProps {
   strokeWidth: number;
@@ -21,19 +23,23 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
   }, []);
 
   return (
-    <select
-      className='bg-gray-600 w-'
-      defaultValue={strokeWidth}
-      name='strokeWidth'
-      id='strokeWidth'
-      onChange={handleSelect}
-    >
-      {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
+    <>
+      {' '}
+      <button></button>
+      <select
+        className='bg-gray-600 w-'
+        defaultValue={strokeWidth}
+        name='strokeWidth'
+        id='strokeWidth'
+        onChange={handleSelect}
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </>
   );
 };
 

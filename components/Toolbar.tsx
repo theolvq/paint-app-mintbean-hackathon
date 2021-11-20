@@ -26,23 +26,9 @@ const Toolbar: FC<IProps> = ({
   tool,
   setTool,
 }) => {
-  const [showColorPicker, setShowColorPicker] = useState(false);
-
-  const handlebuttonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setShowColorPicker((prev) => !prev);
-  };
-
   return (
     <div className='self-start flex flex-col'>
-      <div className='relative'>
-        <button id='color-btn' onClick={handlebuttonClick}>
-          Color Picker
-        </button>
-        {showColorPicker && (
-          <ColorPicker color={strokeColor} setColor={setStrokeColor} />
-        )}
-      </div>
-      <LineCapPicker lineCap={lineCap} setLineCap={setLineCap} />
+      <ColorPicker color={strokeColor} setColor={setStrokeColor} />
       <StrokeWidthPicker
         strokeWidth={strokeWidth}
         setStrokeWidth={setStrokeWidth}

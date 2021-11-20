@@ -2,6 +2,7 @@ import { KonvaEventObject } from 'konva/lib/Node';
 import { Vector2d } from 'konva/lib/types';
 import React, { FC, useState } from 'react';
 import { Stage, Layer, Line, Text, Rect, Circle } from 'react-konva';
+import Cursor from './Cursor';
 
 interface ILine {
   tool: string;
@@ -30,6 +31,8 @@ interface IProps {
 }
 
 const Canvas: FC<IProps> = ({ strokeColor, lineCap, tool, strokeWidth }) => {
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [cursorHidden, setCursorHidden] = useState(true);
   const [lines, setLines] = useState<ILine[]>([]);
   const [currentShape, setCurrentShape] = useState<IBasicShape[]>([]);
   const [drawnShapes, setDrawnShapes] = useState<IBasicShape[]>([]);
@@ -108,6 +111,7 @@ const Canvas: FC<IProps> = ({ strokeColor, lineCap, tool, strokeWidth }) => {
   };
 
   const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
+    setCursorPosition({ x: e.evt.clientX, y: e.evt.clientY });
     if (!isDrawing) {
       return;
     }
@@ -129,8 +133,24 @@ const Canvas: FC<IProps> = ({ strokeColor, lineCap, tool, strokeWidth }) => {
     setCurrentShape([]);
   };
 
+  const handleMouseEnter = () => {
+    setCursorHidden(false);
+  };
+
+  const handleMouseLeave = () => {
+    setCursorHidden(true);
+    setIsDrawing(false);
+  };
+
   return (
     <div>
+      <Cursor
+        cursorPosition={cursorPosition}
+        cursorHidden={cursorHidden}
+        strokeWidth={strokeWidth}
+        strokeColor={strokeColor}
+        tool={tool}
+      />
       <Stage
         className='bg-white'
         width={window.innerWidth * 0.9}
@@ -138,6 +158,8 @@ const Canvas: FC<IProps> = ({ strokeColor, lineCap, tool, strokeWidth }) => {
         onMouseDown={handleMouseDown}
         onMousemove={handleMouseMove}
         onMouseup={handleMouseUp}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <Layer>
           {lines.map((line, i) => (

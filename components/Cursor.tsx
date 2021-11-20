@@ -1,11 +1,11 @@
-import React, { useState, useEffect, FC } from 'react';
+import React, { FC } from 'react';
 
 interface IProps {
   cursorPosition: PositionArgs;
   cursorHidden: boolean;
   strokeWidth: number;
-  color: string;
-  lineCap: CanvasLineCap;
+  strokeColor: string;
+  tool: string;
 }
 
 interface PositionArgs {
@@ -17,27 +17,50 @@ const Cursor: FC<IProps> = ({
   cursorPosition,
   cursorHidden,
   strokeWidth,
-  color,
-  lineCap,
+  strokeColor,
+  tool,
 }) => {
   const cursorRadius = strokeWidth;
-  const cursorLineCap = lineCap === 'round' ? 'rounded-full' : 'rounded-none';
   const cursorVisibility = cursorHidden ? 'invisible' : 'visible';
-  const isEraser = color !== '#ffffff';
+  const generalStyle = {
+    width: cursorRadius,
+    height: cursorRadius,
+    color: strokeColor,
+    border: `${tool !== 'rectangle' ? `1px solid ${strokeColor}` : 'none'} `,
+    left: cursorPosition.x! - cursorRadius / 2,
+    top: cursorPosition.y! - cursorRadius / 2,
+  };
 
-  return (
-    <div
-      className={`cursor ${cursorLineCap} ${cursorVisibility}`}
-      style={{
-        width: cursorRadius,
-        height: cursorRadius,
-        border: `1px solid ${isEraser ? color : '#c5c5c5'}`,
-        backgroundColor: isEraser ? '#11ffee00' : '#c5c5c5',
-        left: cursorPosition.x! - cursorRadius / 2,
-        top: cursorPosition.y! - cursorRadius / 2,
-      }}
-    />
-  );
+  if (tool === 'pen') {
+    return (
+      <div
+        className={`cursor rounded-full ${cursorVisibility}`}
+        style={generalStyle}
+      />
+    );
+  }
+  if (tool === 'rectangle') {
+    return (
+      <div
+        className={`cursor  flex justify-center items-center text-6xl font-light border-0 ${cursorVisibility}`}
+        style={generalStyle}
+      >
+        {' '}
+        +{' '}
+      </div>
+    );
+  }
+  if (tool === 'circle') {
+    return (
+      <div className={`cursor  ${cursorVisibility}`} style={generalStyle}></div>
+    );
+  }
+  if (tool === 'eraser') {
+    return (
+      <div className={`cursor  ${cursorVisibility}`} style={generalStyle}></div>
+    );
+  }
+  return null;
 };
 
 export default Cursor;
