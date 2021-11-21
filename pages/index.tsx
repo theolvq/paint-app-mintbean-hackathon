@@ -1,27 +1,8 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-
-const Canvas = dynamic(() => import('../components/Canvas'), {
-  ssr: false,
-});
-
-import Toolbar from '../components/Toolbar';
-import { IBasicShape, ILine } from '../types';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
-  const [strokeColor, setStrokeColor] = useState('#000000');
-  const [strokeWidth, setStrokeWidth] = useState(12);
-  const [lineCap, setLineCap] = useState<CanvasLineCap>('round');
-  const [tool, setTool] = useState('pen');
-  const [lines, setLines] = useState<ILine[]>([]);
-  const [drawnShapes, setDrawnShapes] = useState<IBasicShape[]>([]);
-  const clearCanvas = () => {
-    setDrawnShapes([]);
-    setLines([]);
-  };
-
   return (
     <>
       <Head>
@@ -30,27 +11,7 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main className='bg-gray-700 text-white min-h-screen flex'>
-        <Toolbar
-          strokeColor={strokeColor}
-          setStrokeColor={setStrokeColor}
-          strokeWidth={strokeWidth}
-          setStrokeWidth={setStrokeWidth}
-          lineCap={lineCap}
-          setLineCap={setLineCap}
-          tool={tool}
-          setTool={setTool}
-          clearCanvas={clearCanvas}
-        />
-        <Canvas
-          strokeColor={strokeColor}
-          strokeWidth={strokeWidth}
-          lineCap={lineCap}
-          tool={tool}
-          lines={lines}
-          setLines={setLines}
-          drawnShapes={drawnShapes}
-          setDrawnShapes={setDrawnShapes}
-        />
+        <h1>Hello You</h1>
       </main>
     </>
   );

@@ -8,7 +8,6 @@ import Cursor from './Cursor';
 interface IProps {
   strokeColor: string;
   strokeWidth: number;
-  lineCap: string;
   tool: string;
   lines: ILine[];
   setLines: Dispatch<SetStateAction<ILine[]>>;
@@ -18,7 +17,6 @@ interface IProps {
 
 const Canvas: FC<IProps> = ({
   strokeColor,
-  lineCap,
   tool,
   strokeWidth,
   lines,
@@ -162,7 +160,7 @@ const Canvas: FC<IProps> = ({
               stroke={line.strokeColor}
               strokeWidth={line.strokeWidth}
               tension={0.5}
-              lineCap='round'
+              // lineCap='round'
               globalCompositeOperation={
                 line.tool === 'eraser' ? 'destination-out' : 'source-over'
               }

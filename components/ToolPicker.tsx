@@ -14,7 +14,7 @@ const ToolPicker: FC<IProps> = ({ tool, setTool }) => {
     setTool(value);
   };
   return (
-    <div>
+    <div className='relative'>
       <button
         className='btn'
         onClick={() => setShowToolPicker(!showToolPicker)}
@@ -24,7 +24,7 @@ const ToolPicker: FC<IProps> = ({ tool, setTool }) => {
       </button>
       {showToolPicker && (
         <select
-          className='bg-gray-600 absolute left-full z-50'
+          className='bg-gray-600 absolute left-full top-4 z-50'
           onChange={handleSelect}
           defaultValue={tool}
         >

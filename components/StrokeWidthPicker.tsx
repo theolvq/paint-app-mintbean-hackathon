@@ -32,7 +32,7 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
       </button>
       {showPicker && (
         <select
-          className='bg-gray-600 absolute left-full top-4'
+          className='bg-gray-600 absolute left-full top-4 z-50'
           defaultValue={strokeWidth}
           name='strokeWidth'
           id='strokeWidth'
