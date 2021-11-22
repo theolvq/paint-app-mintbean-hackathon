@@ -17,14 +17,14 @@ const Team = () => {
           <h4 className='text-xl font-semibold mb-4'>
             Theo, <br /> UI/UX Designer
           </h4>
-          <p className='text-gray-500'>I am a designer who loves to design</p>
+          <p className='text-gray-500'>I am a designer who loves to design.</p>
         </li>
         <li className='team-card'>
           <div className='w-32 h-32 bg-black rounded-full mb-8'></div>
           <h4 className='text-xl font-semibold mb-4'>
             Theo, <br /> QA Tester
           </h4>
-          <p className='text-gray-500'>I am a tester who loves to test</p>
+          <p className='text-gray-500'>I am a tester who loves to test.</p>
         </li>
       </ul>
     </section>

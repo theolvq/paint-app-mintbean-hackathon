@@ -16,42 +16,52 @@ const Home: NextPage = () => {
         <Title />
         <div className='card'>
           <div>
-            <h2 className='text-2xl mb-4 text-gray-400'>Be creative</h2>
-            <p className='max-w-sm text-gray-200'>
+            <h2 className='text-2xl mb-4 text-gray-600'>Be creative</h2>
+            <p className='max-w-sm'>
               Create beautiful designs with your mouse. Pick a tool, a color and
               a size and go for it! Nothing can stop you, you can be Picasso
               too!{' '}
-            </p>
-          </div>
-          <div className='w-96 h-72 bg-gray-300 '></div>
-        </div>
-        <div className='card flex-row-reverse'>
-          <div>
-            <h2 className='text-2xl mb-4 text-gray-400'>Think big</h2>
-            <p className='max-w-sm text-gray-200'>
-              Only your imagination is the limit. Think big. Imagine great
-              things. Just paint and let your creative mind take over.
-            </p>
-          </div>
-          <div className='w-96 h-72 bg-gray-300 '></div>
-        </div>
-        <div className='card'>
-          <div>
-            <h2 className='text-2xl mb-4 text-gray-400'>
-              Anyone can be an artist
-            </h2>
-            <p className='max-w-sm text-gray-200'>
-              Don&#39;t let what they told you hold you back. You too can paint,
-              you just need the right tools. And it looks like you found them.
-              Right here,{' '}
               <Link href='/paint'>
-                <a className='font-semibold underline text-cyan-300'>
-                  just paint
+                <a className='font-semibold underline text-pink-400'>
+                  Be creative now.
                 </a>
               </Link>
             </p>
           </div>
-          <div className='w-96 h-72 bg-gray-300 '></div>
+          <div className='w-96 h-72 bg-gray-700 '></div>
+        </div>
+        <div className='card flex-row-reverse'>
+          <div>
+            <h2 className='text-2xl mb-4 text-gray-600'>Think big</h2>
+            <p className='max-w-sm '>
+              Only your imagination is the limit. Think big. Imagine great
+              things. Just paint and let your creative mind take over.{' '}
+              <Link href='/paint'>
+                <a className='font-semibold underline text-pink-400'>
+                  Think big now.
+                </a>
+              </Link>
+            </p>
+          </div>
+          <div className='w-96 h-72 bg-gray-700'></div>
+        </div>
+        <div className='card'>
+          <div>
+            <h2 className='text-2xl mb-4 text-gray-600'>
+              Anyone can be an artist
+            </h2>
+            <p className='max-w-sm '>
+              Don&#39;t let what they told you hold you back. You too can paint,
+              you just need the right tools. And it looks like you found them.
+              Right here,{' '}
+              <Link href='/paint'>
+                <a className='font-semibold underline text-pink-400'>
+                  just paint now.
+                </a>
+              </Link>
+            </p>
+          </div>
+          <div className='w-96 h-72 bg-gray-700 '></div>
         </div>
         <Team />
       </main>
