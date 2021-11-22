@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Poppins:wght@400;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +12,13 @@
   }
 
   body {
-    @apply bg-gray-200 text-gray-700;
+    @apply bg-gray-200 text-gray-700 font-sans;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-pop;
   }
 }
 

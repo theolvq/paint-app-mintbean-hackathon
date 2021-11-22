@@ -47,12 +47,12 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
         </div>
       </Listbox.Button>
       <Transition
-        enter='transition duration-100 ease-out'
-        enterFrom='transform scale-95 opacity-0'
-        enterTo='transform scale-100 opacity-100'
-        leave='transition duration-75 ease-out'
-        leaveFrom='transform scale-100 opacity-100'
-        leaveTo='transform scale-95 opacity-0'
+        enter='transition-opacity duration-100 ease-out'
+        enterFrom='opacity-0'
+        enterTo='opacity-100'
+        leave='transition-opacity duration-75 ease-out'
+        leaveFrom='opacity-100'
+        leaveTo='opacity-0'
       >
         <Listbox.Options className='absolute z-50 w-12'>
           {options.map((option) => (

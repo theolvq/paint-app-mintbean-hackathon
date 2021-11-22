@@ -2,10 +2,11 @@ import React, { FC } from 'react';
 
 const IntroBlob: FC = () => {
   return (
-    <div className='bg-gray-200 mx-4 py-8 px-12 rounded-lg shadow-2xl max-w-3xlbackdrop-blur-lg bg-opacity-30 text-gray-700 max-w-3xl'>
-      <p>
-        This project was designed, built and deployed for a hackathon organized
-        by{' '}
+    <div className='bg-gray-200 mx-4 py-8 px-12 rounded-lg shadow-2xl backdrop-filter backdrop-blur-lg bg-opacity-30 text-gray-700 max-w-3xl'>
+      <h2 className='text-2xl mb-4 font-bold'>Paint!</h2>
+      <p className='mb-2'>
+        This project was designed, built and deployed in one week for a
+        hackathon organized by{' '}
         <a
           href='https://mintbean.io'
           className='link text-gray-700 hover:border-gray-700'
