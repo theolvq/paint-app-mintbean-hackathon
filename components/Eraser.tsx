@@ -20,9 +20,15 @@ const Eraser: FC<IProps> = ({ setColor, color }) => {
   };
 
   return (
-    <button className='btn' onClick={handleClick}>
-      <Icon path={mdiEraserVariant} size='48px' />
-    </button>
+    <div className='group relative'>
+      <button className='btn' onClick={handleClick}>
+        <Icon path={mdiEraserVariant} />
+      </button>
+      <div className='tooltip'>
+        Eraser
+        <div className='tooltip-arrow' />
+      </div>
+    </div>
   );
 };
 

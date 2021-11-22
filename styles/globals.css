@@ -23,25 +23,32 @@
   }
 
   .btn {
-    @apply flex flex-col justify-center items-center  w-12 text-4xl bg-gray-800 hover:bg-gray-600;
+    @apply flex flex-col justify-center items-center  w-12 h-12 text-4xl bg-gray-800 hover:bg-gray-600;
   }
 
   /* .select {
     @apply bg-gray-600 absolute left-full top-4 z-50 appearance-none px-2;
   } */
 
+  .tooltip {
+    @apply invisible group-hover:visible absolute top-2 left-14 min-w-max
+    transform  z-10 
+    px-2 py-1 bg-black text-white 
+    flex justify-center items-center 
+    rounded-sm capitalize;
+  }
+
   .tooltip-arrow {
-    @apply border-gray-600;
     position: absolute;
-    left: -1rem;
-    top: 50%;
+    right: 100%;
+    color: white;
     width: 0;
     height: 0;
-    border: 0.5rem solid hsla(330, 70%, 98%, 1);
-    /* border-top-color: hsla(330, 70%, 98%, 1); */
-    border-bottom-color: transparent;
+    border: 0.5rem solid #000;
     border-left-color: transparent;
-    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-right-color: #000;
   }
 
   .card {

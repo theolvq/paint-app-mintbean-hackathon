@@ -8,9 +8,15 @@ interface IProps {
 
 const Delete: FC<IProps> = ({ clearCanvas }) => {
   return (
-    <button className='btn' onClick={clearCanvas}>
-      <Icon path={mdiDelete} size='48px' />
-    </button>
+    <div className='group relative'>
+      <button className='btn' onClick={clearCanvas}>
+        <Icon path={mdiDelete} size='48px' />
+      </button>
+      <div className='tooltip'>
+        Clear Canvas
+        <div className='tooltip-arrow' />
+      </div>
+    </div>
   );
 };
 

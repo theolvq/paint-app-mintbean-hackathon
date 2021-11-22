@@ -1,6 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
-import { MdPalette } from 'react-icons/md';
+import Icon from '@mdi/react';
+import { mdiPalette } from '@mdi/js';
+import { Menu, Transition } from '@headlessui/react';
 
 interface IProps {
   color: string;
@@ -13,23 +15,33 @@ const ColorPicker: React.FC<IProps> = ({ color, setColor }) => {
     setShowColorPicker((prev) => !prev);
   };
   return (
-    <div className='relative'>
-      <button id='color-btn' className='btn' onClick={handlebuttonClick}>
-        <MdPalette />
-      </button>
-      {showColorPicker && (
-        <div
-          id='color-picker'
-          className='absolute left-full top-4 z-50 bg-gray-300 '
-        >
-          <HexColorPicker
-            color={color}
-            onChange={setColor}
-            defaultValue={color}
-          />
-        </div>
-      )}
-    </div>
+    <Menu as='div' className='group relative'>
+      <Menu.Button id='color-btn' className='btn' onClick={handlebuttonClick}>
+        <Icon path={mdiPalette} />
+      </Menu.Button>
+      <Transition
+      // enter='transition duration-100 ease-out'
+      // enterFrom='transform scale-95 opacity-0'
+      // enterTo='transform scale-100 opacity-100'
+      // leave='transition duration-75 ease-out'
+      // leaveFrom='transform scale-100 opacity-100'
+      // leaveTo='transform scale-95 opacity-0'
+      >
+        <Menu.Items>
+          <Menu.Item as='div' className='absolute left-full top-0 z-50'>
+            <HexColorPicker
+              color={color}
+              onChange={setColor}
+              defaultValue={color}
+            />
+          </Menu.Item>
+        </Menu.Items>
+      </Transition>
+      <div className='tooltip'>
+        color
+        <div className='tooltip-arrow' />
+      </div>
+    </Menu>
   );
 };
 
