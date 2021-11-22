@@ -15,6 +15,8 @@ interface IProps {
   setDrawnShapes: Dispatch<SetStateAction<IBasicShape[]>>;
 }
 
+type KonvaEvent = KonvaEventObject<MouseEvent | TouchEvent>;
+
 const Canvas: FC<IProps> = ({
   strokeColor,
   tool,
@@ -92,7 +94,7 @@ const Canvas: FC<IProps> = ({
     ]);
   };
 
-  const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
+  const handleMouseDown = (e: KonvaEvent) => {
     setIsDrawing(true);
     const pointerPosition = e.target.getStage()!.getPointerPosition()!;
     if (tool === 'pen') {
@@ -101,8 +103,15 @@ const Canvas: FC<IProps> = ({
     startShape(pointerPosition);
   };
 
-  const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
-    setCursorPosition({ x: e.evt.clientX, y: e.evt.clientY });
+  type KonvaMouseEvent = KonvaEventObject<MouseEvent>;
+
+  const isMouseEvent = (tbd: KonvaEvent): tbd is KonvaMouseEvent =>
+    (tbd as KonvaMouseEvent).type ? true : false;
+
+  const handleMouseMove = (e: KonvaEvent) => {
+    if (isMouseEvent(e)) {
+      setCursorPosition({ x: e.evt.clientX, y: e.evt.clientY });
+    }
     if (!isDrawing) {
       return;
     }
@@ -151,6 +160,9 @@ const Canvas: FC<IProps> = ({
         onMouseup={handleMouseUp}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onTouchStart={handleMouseDown}
+        onTouchMove={handleMouseMove}
+        onTouchEnd={handleMouseUp}
       >
         <Layer>
           {lines.map((line, i) => (

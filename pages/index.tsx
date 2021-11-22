@@ -26,9 +26,9 @@ const Home: NextPage = () => {
               <a className='link'>Be creative now.</a>
             </Link>
           </div>
-          <div className='w-96 h-72 bg-gray-700 '></div>
+          <div className='image'></div>
         </div>
-        <div className='card flex-row-reverse'>
+        <div className='card sm:flex-row-reverse'>
           <div>
             <h2 className='text-2xl mb-4 text-gray-600'>Think big</h2>
             <p className='max-w-sm mb-8'>
@@ -39,7 +39,7 @@ const Home: NextPage = () => {
               <a className='link'>Think big now.</a>
             </Link>
           </div>
-          <div className='w-96 h-72 bg-gray-700'></div>
+          <div className='image'></div>
         </div>
         <div className='card'>
           <div>
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
               <a className='link'>Just paint now.</a>
             </Link>
           </div>
-          <div className='w-96 h-72 bg-gray-700 '></div>
+          <div className='image '></div>
         </div>
         <Team />
       </main>

@@ -4,7 +4,7 @@ const Team = () => {
   return (
     <section className='flex flex-col items-center max-w-screen-lg'>
       <h3 className='text-3xl font-bold mb-16'>Meet the team!</h3>
-      <ul className='flex items-center gap-32'>
+      <ul className='flex sm:flex-row flex-col items-center gap-32'>
         <li className='team-card'>
           <div className='w-32 h-32 bg-black rounded-full mb-8'></div>
           <h4 className='text-xl font-semibold mb-4'>

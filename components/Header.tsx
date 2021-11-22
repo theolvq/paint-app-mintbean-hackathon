@@ -6,7 +6,7 @@ const Header: FC = () => {
   const router = useRouter();
 
   return (
-    <header className='flex items-center justify-center sticky top-0 w-full h-16 bg-gray-300  z-50 uppercase font-semibold text-xl shadow-md'>
+    <header className='flex items-center justify-center sticky top-0 w-full h-16 bg-gray-300 z-50 uppercase font-semibold text-xl shadow-md'>
       <nav>
         <ul className='flex justify-center items-center gap-8'>
           <li
