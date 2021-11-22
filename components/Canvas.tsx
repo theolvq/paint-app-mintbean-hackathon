@@ -172,7 +172,7 @@ const Canvas: FC<IProps> = ({
               stroke={line.strokeColor}
               strokeWidth={line.strokeWidth}
               tension={0.5}
-              // lineCap='round'
+              lineCap='round'
               globalCompositeOperation={
                 line.tool === 'eraser' ? 'destination-out' : 'source-over'
               }

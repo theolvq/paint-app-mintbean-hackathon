@@ -60,7 +60,7 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
               {({ active, selected }) => (
                 <li
                   className={`${
-                    active ? 'bg-gray-800' : 'bg-gray-400'
+                    active ? 'bg-gray-800' : 'bg-gray-600'
                   } flex items-center gap-1 px-1`}
                 >
                   {option}

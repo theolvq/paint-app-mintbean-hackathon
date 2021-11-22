@@ -1,9 +1,10 @@
 import { mdiGithub, mdiLinkedin, mdiTwitter, mdiWeb } from '@mdi/js';
 import Icon from '@mdi/react';
-import React from 'react';
+import React, { FC, useMemo } from 'react';
 
-const Footer = () => {
-  const year = new Date().getFullYear();
+const Footer: FC = () => {
+  const year = useMemo(() => new Date().getFullYear(), []);
+
   return (
     <footer className='flex flex-col items-center bg-gray-800 text-gray-300'>
       <div className='flex flex-col items-center my-8 gap-4'>
@@ -15,7 +16,7 @@ const Footer = () => {
             rel='noreferrer'
             title='My personal website'
           >
-            <Icon path={mdiWeb} size='48px' />{' '}
+            <Icon path={mdiWeb} size={2} />{' '}
           </a>{' '}
           <a
             href='https://www.github.com/daawascript'
@@ -23,7 +24,7 @@ const Footer = () => {
             rel='noreferrer'
             title='My github'
           >
-            <Icon path={mdiGithub} size='48px' />{' '}
+            <Icon path={mdiGithub} size={2} />{' '}
           </a>{' '}
           <a
             href='https://www.twitter.com/daawascript'
@@ -31,7 +32,7 @@ const Footer = () => {
             rel='noreferrer'
             title='My twitter'
           >
-            <Icon path={mdiTwitter} size='48px' />
+            <Icon path={mdiTwitter} size={2} />
           </a>
           <a
             href='https://www.linkedin.com/in/theoleveque/'
@@ -39,7 +40,7 @@ const Footer = () => {
             rel='noreferrer'
             title='My linkedin'
           >
-            <Icon path={mdiLinkedin} size='48px' />
+            <Icon path={mdiLinkedin} size={2} />
           </a>
         </div>
       </div>

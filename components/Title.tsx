@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const Title = () => {
+const Title: FC = () => {
   return (
     <div className='uppercase font-bold text-4xl sm:text-6xl text-center mt-16'>
       <h1>

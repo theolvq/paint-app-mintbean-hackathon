@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import IntroBlob from '../components/IntroBlob';
 import Team from '../components/Team';
 import Title from '../components/Title';
 
@@ -14,6 +15,7 @@ const Home: NextPage = () => {
       </Head>
       <main className='min-h-screen flex flex-col items-center gap-16 pb-32 bg-gradient-to-br from-cyan-300 to-violet-500 via-fuschia-400'>
         <Title />
+        <IntroBlob />
         <div className='card'>
           <div>
             <h2 className='text-2xl mb-4 text-gray-600'>Be creative</h2>

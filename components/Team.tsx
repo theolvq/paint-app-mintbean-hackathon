@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const Team = () => {
+const Team: FC = () => {
   return (
     <section className='flex flex-col items-center max-w-screen-lg'>
       <h3 className='text-3xl font-bold mb-16'>Meet the team!</h3>

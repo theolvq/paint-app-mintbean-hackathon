@@ -27,9 +27,9 @@
   }
 
   .tooltip {
-    @apply invisible group-hover:visible absolute top-2 left-14 min-w-max
+    @apply invisible group-hover:visible absolute top-2 left-14 min-w-max 
     transform  z-10 
-    px-2 py-1 bg-black text-white 
+    px-2 py-1 bg-gray-700 text-white 
     flex justify-center items-center 
     rounded-sm capitalize;
   }
@@ -40,15 +40,17 @@
     color: white;
     width: 0;
     height: 0;
-    border: 0.5rem solid #000;
+    border: 0.5rem solid rgb(63, 63, 70);
     border-left-color: transparent;
     border-bottom-color: transparent;
     border-top-color: transparent;
-    border-right-color: #000;
+    border-right-color: rgb(63, 63, 70);
   }
 
   .card {
-    @apply flex flex-col sm:flex-row items-center gap-16 bg-gray-300 text-gray-500 mx-4 py-8 px-12 rounded-lg shadow-2xl;
+    @apply flex flex-col sm:flex-row items-center gap-16 
+    bg-gray-200 text-gray-500 mx-4 py-8 px-12 
+    rounded-lg shadow-2xl max-w-3xl;
   }
 
   .image {
@@ -56,7 +58,7 @@
   }
 
   .team-card {
-    @apply flex flex-col items-center text-center bg-true-gray-200 px-8 py-4 rounded-2xl shadow-lg w-60;
+    @apply flex flex-col items-center text-center bg-true-gray-200 px-8 py-6 rounded-2xl shadow-lg w-60;
   }
 
   .link {
