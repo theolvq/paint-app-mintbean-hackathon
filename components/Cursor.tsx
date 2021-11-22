@@ -22,7 +22,11 @@ const Cursor: FC<IProps> = ({
     width: cursorRadius,
     height: cursorRadius,
     color: strokeColor,
-    border: `${tool !== 'rectangle' ? `1px solid ${strokeColor}` : 'none'} `,
+    border: `${
+      tool.includes('rectangle') || tool.includes('circle')
+        ? 'none'
+        : `1px solid ${strokeColor}`
+    } `,
     left: cursorPosition.x! - cursorRadius / 2,
     top: cursorPosition.y! - cursorRadius / 2,
   };
@@ -35,7 +39,7 @@ const Cursor: FC<IProps> = ({
       />
     );
   }
-  if (tool === 'rectangle') {
+  if (tool.includes('rectangle') || tool.includes('circle')) {
     return (
       <div
         className={`cursor  flex justify-center items-center text-6xl font-light border-0 ${cursorVisibility}`}
@@ -46,11 +50,7 @@ const Cursor: FC<IProps> = ({
       </div>
     );
   }
-  if (tool === 'circle') {
-    return (
-      <div className={`cursor  ${cursorVisibility}`} style={generalStyle}></div>
-    );
-  }
+
   if (tool === 'eraser') {
     return (
       <div className={`cursor  ${cursorVisibility}`} style={generalStyle}></div>

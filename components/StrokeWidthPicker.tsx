@@ -47,10 +47,10 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
         </div>
       </Listbox.Button>
       <Transition
-        enter='transition-opacity duration-100 ease-out'
+        enter='transition-opacity duration-300 ease-out'
         enterFrom='opacity-0'
         enterTo='opacity-100'
-        leave='transition-opacity duration-75 ease-out'
+        leave='transition-opacity duration-300 ease-out'
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
@@ -58,14 +58,14 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
           {options.map((option) => (
             <Listbox.Option key={option} value={option}>
               {({ active, selected }) => (
-                <li
+                <div
                   className={`${
                     active ? 'bg-gray-800' : 'bg-gray-600'
                   } flex items-center gap-1 px-1`}
                 >
                   {option}
                   {selected && <Icon path={mdiCheck} size='16px' />}
-                </li>
+                </div>
               )}
             </Listbox.Option>
           ))}

@@ -36,7 +36,7 @@
 
   .tooltip {
     @apply invisible group-hover:visible absolute top-2 left-14 min-w-max 
-    transform  z-10 
+    transform  z-100
     px-2 py-1 bg-gray-700 text-white 
     flex justify-center items-center 
     rounded-sm capitalize;

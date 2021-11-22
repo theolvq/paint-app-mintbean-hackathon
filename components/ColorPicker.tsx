@@ -23,10 +23,10 @@ const ColorPicker: FC<IProps> = ({ color, setColor }) => {
             </div>
           </Menu.Button>
           <Transition
-            enter='transition-opacity duration-100 ease-out'
+            enter='transition-opacity duration-300 ease-out'
             enterFrom='opacity-0'
             enterTo='opacity-100'
-            leave='transition-opacity duration-75 ease-out'
+            leave='transition-opacity duration-300 ease-out'
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >

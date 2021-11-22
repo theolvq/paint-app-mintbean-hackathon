@@ -21,8 +21,16 @@ const options = [
     icon: mdiRectangleOutline,
   },
   {
+    value: 'rectangle-full',
+    icon: mdiRectangle,
+  },
+  {
     value: 'circle',
     icon: mdiCircleOutline,
+  },
+  {
+    value: 'circle-full',
+    icon: mdiCircle,
   },
   {
     value: 'pen',
@@ -35,8 +43,12 @@ const ToolPicker: FC<IProps> = ({ tool, setTool }) => {
     switch (tool) {
       case 'rectangle':
         return mdiRectangleOutline;
+      case 'rectangle-full':
+        return mdiRectangle;
       case 'circle':
         return mdiCircleOutline;
+      case 'circle-full':
+        return mdiCircle;
       case 'pen':
         return mdiGreasePencil;
       default:
@@ -58,10 +70,10 @@ const ToolPicker: FC<IProps> = ({ tool, setTool }) => {
         </div>
       </Listbox.Button>
       <Transition
-        enter='transition-opacity duration-100 ease-out'
+        enter='transition-opacity duration-300 ease-out'
         enterFrom='opacity-0'
         enterTo='opacity-100'
-        leave='transition-opacity duration-75 ease-out'
+        leave='transition-opacity duration-300 ease-out'
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
@@ -69,7 +81,7 @@ const ToolPicker: FC<IProps> = ({ tool, setTool }) => {
           {options.map(({ value, icon }) => (
             <Listbox.Option key={value} value={value}>
               {({ active, selected }) => (
-                <li
+                <div
                   className={`${
                     active ? 'bg-gray-800' : 'bg-gray-600'
                   } flex items-center gap-1 group relative`}
@@ -80,7 +92,7 @@ const ToolPicker: FC<IProps> = ({ tool, setTool }) => {
                     {value}
                     <div className='tooltip-arrow' />
                   </div>
-                </li>
+                </div>
               )}
             </Listbox.Option>
           ))}

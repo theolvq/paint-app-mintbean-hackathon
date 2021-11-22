@@ -22,6 +22,9 @@ module.exports = {
         fuschia: colors.fuchsia,
         pink: colors.pink,
       },
+      zIndex: {
+        100: 100,
+      },
     },
   },
   variants: {

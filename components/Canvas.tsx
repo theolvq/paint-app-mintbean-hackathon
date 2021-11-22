@@ -65,7 +65,7 @@ const Canvas: FC<IProps> = ({
     setCurrentShape((prev: IBasicShape[]) => [
       ...prev,
       {
-        tool: 'rectangle',
+        tool,
         strokeColor,
         strokeWidth,
         points: [pointerPosition.x, pointerPosition.y],
@@ -87,8 +87,7 @@ const Canvas: FC<IProps> = ({
         tool,
         strokeColor,
         strokeWidth,
-        shape: 'circle',
-        points: [pointerPosition.x, pointerPosition.y],
+        points: [startPosition.x, startPosition.y],
         radius,
       },
     ]);
@@ -119,10 +118,10 @@ const Canvas: FC<IProps> = ({
     if (tool === 'pen') {
       drawLine(pointerPosition);
     }
-    if (tool === 'rectangle') {
+    if (tool.includes('rectangle')) {
       drawRect(pointerPosition);
     }
-    if (tool === 'circle') {
+    if (tool.includes('circle')) {
       drawCircle(pointerPosition);
     }
   };
@@ -152,7 +151,7 @@ const Canvas: FC<IProps> = ({
         tool={tool}
       />
       <Stage
-        className='bg-white'
+        className='bg-white z-10'
         width={window.innerWidth * 0.925}
         height={window.innerHeight * 0.925}
         onMouseDown={handleMouseDown}
@@ -183,7 +182,7 @@ const Canvas: FC<IProps> = ({
             .filter((_, i) => i >= currentShape.length - 1)
             .map((shape, i) => {
               if (!shape) return null;
-              if (shape.tool === 'rectangle') {
+              if (shape.tool.includes('rectangle')) {
                 return (
                   <Rect
                     key={i}
@@ -193,10 +192,15 @@ const Canvas: FC<IProps> = ({
                     height={shape.height}
                     stroke={shape.strokeColor}
                     strokeWidth={shape.strokeWidth}
+                    fill={
+                      shape.tool === 'rectangle-full'
+                        ? shape.strokeColor
+                        : 'transparent'
+                    }
                   />
                 );
               }
-              if (shape.tool === 'circle') {
+              if (shape.tool.includes('circle')) {
                 return (
                   <Circle
                     key={i}
@@ -205,13 +209,18 @@ const Canvas: FC<IProps> = ({
                     radius={shape.radius}
                     stroke={shape.strokeColor}
                     strokeWidth={shape.strokeWidth}
+                    fill={
+                      shape.tool === 'circle-full'
+                        ? shape.strokeColor
+                        : 'transparent'
+                    }
                   />
                 );
               }
             })}
           {drawnShapes.map((shape, i) => {
             if (!shape) return null;
-            if (shape.tool === 'rectangle') {
+            if (shape.tool.includes('rectangle')) {
               return (
                 <Rect
                   key={i}
@@ -221,10 +230,15 @@ const Canvas: FC<IProps> = ({
                   height={shape.height}
                   stroke={shape.strokeColor}
                   strokeWidth={shape.strokeWidth}
+                  fill={
+                    shape.tool === 'rectangle-full'
+                      ? shape.strokeColor
+                      : 'transparent'
+                  }
                 />
               );
             }
-            if (shape.tool === 'circle') {
+            if (shape.tool.includes('circle')) {
               return (
                 <Circle
                   key={i}
@@ -233,6 +247,11 @@ const Canvas: FC<IProps> = ({
                   radius={shape.radius}
                   stroke={shape.strokeColor}
                   strokeWidth={shape.strokeWidth}
+                  fill={
+                    shape.tool === 'circle-full'
+                      ? shape.strokeColor
+                      : 'transparent'
+                  }
                 />
               );
             }
