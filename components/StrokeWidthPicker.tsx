@@ -1,5 +1,14 @@
-import React, { Dispatch, FC, SetStateAction, useMemo, useState } from 'react';
-import { MdLineWeight } from 'react-icons/md';
+import React, {
+  Dispatch,
+  FC,
+  FormEventHandler,
+  SetStateAction,
+  useMemo,
+  useState,
+} from 'react';
+import { mdiChevronDown, mdiFormatLineWeight, mdiCheck } from '@mdi/js';
+import Icon from '@mdi/react';
+import { Listbox } from '@headlessui/react';
 
 interface IProps {
   strokeWidth: number;
@@ -8,11 +17,6 @@ interface IProps {
 
 const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
   const [showPicker, setShowPicker] = useState(false);
-
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    setStrokeWidth(Number(value));
-  };
 
   const options = useMemo(() => {
     return Array.from({ length: 30 }, (n, i) => i * 4).filter((el, i) => {
@@ -24,28 +28,38 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
   }, []);
 
   return (
-    <div className='relative'>
-      {' '}
-      <button className='btn' onClick={() => setShowPicker(!showPicker)}>
-        {' '}
-        <MdLineWeight />{' '}
-      </button>
-      {showPicker && (
-        <select
-          className='bg-gray-600 absolute left-full top-4 z-50'
-          defaultValue={strokeWidth}
-          name='strokeWidth'
-          id='strokeWidth'
-          onChange={handleSelect}
-        >
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      )}
-    </div>
+    <Listbox
+      as='div'
+      className='relative'
+      value={strokeWidth}
+      onChange={setStrokeWidth}
+    >
+      <Listbox.Button
+        className='btn'
+        defaultValue={strokeWidth}
+        name='strokeWidth'
+        id='strokeWidth'
+      >
+        <Icon path={mdiFormatLineWeight} size='48px' />
+        <div className='text-sm'>{strokeWidth}</div>
+      </Listbox.Button>
+      <Listbox.Options className='absolute z-50 w-12'>
+        {options.map((option) => (
+          <Listbox.Option key={option} value={option}>
+            {({ active, selected }) => (
+              <li
+                className={`${
+                  active ? 'bg-gray-800' : 'bg-gray-400'
+                } flex items-center gap-1`}
+              >
+                {option}
+                {selected && <Icon path={mdiCheck} size='16px' />}
+              </li>
+            )}
+          </Listbox.Option>
+        ))}
+      </Listbox.Options>
+    </Listbox>
   );
 };
 

@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 @layer base {
-  canvas {
-    cursor: none;
+  @media screen and (min-width: 640px) {
+    canvas {
+      cursor: none;
+    }
   }
 
   body {
@@ -21,8 +23,12 @@
   }
 
   .btn {
-    @apply flex justify-center items-center  w-12 h-12 text-4xl bg-gray-800 hover:bg-gray-600;
+    @apply flex flex-col justify-center items-center  w-12 text-4xl bg-gray-800 hover:bg-gray-600;
   }
+
+  /* .select {
+    @apply bg-gray-600 absolute left-full top-4 z-50 appearance-none px-2;
+  } */
 
   .tooltip-arrow {
     @apply border-gray-600;
