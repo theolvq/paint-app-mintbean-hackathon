@@ -45,4 +45,8 @@
   .team-card {
     @apply flex flex-col items-center text-center bg-true-gray-200 px-8 py-4 rounded-2xl shadow-lg w-60;
   }
+
+  .link {
+    @apply font-semibold border-b-2 hover:border-pink-400 text-pink-400 transition-all border-transparent;
+  }
 }

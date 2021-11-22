@@ -1,4 +1,4 @@
-import { mdiGithub, mdiLinkedin, mdiTwitter } from '@mdi/js';
+import { mdiGithub, mdiLinkedin, mdiTwitter, mdiWeb } from '@mdi/js';
 import Icon from '@mdi/react';
 import React from 'react';
 
@@ -10,9 +10,18 @@ const Footer = () => {
         <h3 className='text-xl font-semibold'>Find me on the Internet</h3>
         <div className='flex items-center gap-4'>
           <a
+            href='https://www.theoleveque.com'
+            target='_blank'
+            rel='noreferrer'
+            title='My personal website'
+          >
+            <Icon path={mdiWeb} size='48px' />{' '}
+          </a>{' '}
+          <a
             href='https://www.github.com/daawascript'
             target='_blank'
             rel='noreferrer'
+            title='My github'
           >
             <Icon path={mdiGithub} size='48px' />{' '}
           </a>{' '}
@@ -20,6 +29,7 @@ const Footer = () => {
             href='https://www.twitter.com/daawascript'
             target='_blank'
             rel='noreferrer'
+            title='My twitter'
           >
             <Icon path={mdiTwitter} size='48px' />
           </a>
@@ -27,6 +37,7 @@ const Footer = () => {
             href='https://www.linkedin.com/in/theoleveque/'
             target='_blank'
             rel='noreferrer'
+            title='My linkedin'
           >
             <Icon path={mdiLinkedin} size='48px' />
           </a>
