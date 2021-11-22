@@ -10,8 +10,8 @@ const Header: FC = () => {
       <nav>
         <ul className='flex justify-center items-center gap-8'>
           <li
-            className={`border-0 hover:border-b-4 border-pink-400 transition-all ${
-              router.pathname === '/' ? 'border-b-4' : ''
+            className={`hover:border-pink-400  border-b-4 transition-all ${
+              router.pathname === '/' ? 'border-pink-400' : 'border-transparent'
             }`}
           >
             <Link href='/'>
@@ -19,8 +19,10 @@ const Header: FC = () => {
             </Link>
           </li>
           <li
-            className={`border-0 hover:border-b-4 border-pink-400 transition-all ${
-              router.pathname === '/paint' ? 'border-b-4' : ''
+            className={`hover:border-pink-400 border-b-4 transition-all ${
+              router.pathname === '/paint'
+                ? 'border-pink-400'
+                : 'border-transparent'
             }`}
           >
             <Link href='/paint'>
