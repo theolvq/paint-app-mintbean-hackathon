@@ -15,9 +15,13 @@ const ColorPicker: React.FC<IProps> = ({ color, setColor }) => {
     setShowColorPicker((prev) => !prev);
   };
   return (
-    <Menu as='div' className='group relative'>
-      <Menu.Button id='color-btn' className='btn' onClick={handlebuttonClick}>
-        <Icon path={mdiPalette} />
+    <Menu as='div' className='relative'>
+      <Menu.Button className='group btn' onClick={handlebuttonClick}>
+        <Icon path={mdiPalette} size={1.5} />
+        <div className='tooltip'>
+          color
+          <div className='tooltip-arrow' />
+        </div>
       </Menu.Button>
       <Transition
       // enter='transition duration-100 ease-out'
@@ -37,10 +41,6 @@ const ColorPicker: React.FC<IProps> = ({ color, setColor }) => {
           </Menu.Item>
         </Menu.Items>
       </Transition>
-      <div className='tooltip'>
-        color
-        <div className='tooltip-arrow' />
-      </div>
     </Menu>
   );
 };

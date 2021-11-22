@@ -10,7 +10,7 @@ const Delete: FC<IProps> = ({ clearCanvas }) => {
   return (
     <div className='group relative'>
       <button className='btn' onClick={clearCanvas}>
-        <Icon path={mdiDelete} size='48px' />
+        <Icon path={mdiDelete} size={1.5} />
       </button>
       <div className='tooltip'>
         Clear Canvas

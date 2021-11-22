@@ -22,7 +22,7 @@ const Eraser: FC<IProps> = ({ setColor, color }) => {
   return (
     <div className='group relative'>
       <button className='btn' onClick={handleClick}>
-        <Icon path={mdiEraserVariant} />
+        <Icon path={mdiEraserVariant} size={1.5} />
       </button>
       <div className='tooltip'>
         Eraser

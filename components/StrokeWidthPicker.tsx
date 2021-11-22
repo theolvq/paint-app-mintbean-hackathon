@@ -30,18 +30,21 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
   return (
     <Listbox
       as='div'
-      className='group relative'
+      className='relative'
       value={strokeWidth}
       onChange={setStrokeWidth}
     >
       <Listbox.Button
-        className='btn'
+        className='group btn'
         defaultValue={strokeWidth}
         name='strokeWidth'
-        id='strokeWidth'
       >
-        <Icon path={mdiFormatLineWeight} />
-        <div className='text-sm'>{strokeWidth}</div>
+        <Icon path={mdiFormatLineWeight} size={1.5} />
+        <div className='text-sm'>{strokeWidth}px</div>
+        <div className='tooltip'>
+          stroke width
+          <div className='tooltip-arrow' />
+        </div>
       </Listbox.Button>
       <Transition
         enter='transition duration-100 ease-out'
@@ -58,7 +61,7 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
                 <li
                   className={`${
                     active ? 'bg-gray-800' : 'bg-gray-400'
-                  } flex items-center gap-1`}
+                  } flex items-center gap-1 px-1`}
                 >
                   {option}
                   {selected && <Icon path={mdiCheck} size='16px' />}
@@ -68,10 +71,6 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
           ))}
         </Listbox.Options>
       </Transition>
-      <div className='tooltip'>
-        stroke width
-        <div className='tooltip-arrow' />
-      </div>
     </Listbox>
   );
 };
