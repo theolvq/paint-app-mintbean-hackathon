@@ -25,7 +25,7 @@ const Toolbar: FC<IProps> = ({
   clearCanvas,
 }) => {
   return (
-    <div className='self-start flex flex-col'>
+    <div className='self-start flex flex-col mx-2'>
       <ColorPicker color={strokeColor} setColor={setStrokeColor} />
       <StrokeWidthPicker
         strokeWidth={strokeWidth}

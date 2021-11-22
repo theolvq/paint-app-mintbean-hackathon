@@ -20,7 +20,7 @@ const Home: NextPage = () => {
             <p className='max-w-sm mb-8'>
               Create beautiful designs with your mouse. Pick a tool, a color and
               a size and go for it! Nothing can stop you, you can be Picasso
-              too!{' '}
+              too!
             </p>
             <Link href='/paint'>
               <a className='link'>Be creative now.</a>

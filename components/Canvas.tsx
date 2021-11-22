@@ -153,8 +153,8 @@ const Canvas: FC<IProps> = ({
       />
       <Stage
         className='bg-white'
-        width={window.innerWidth * 0.9}
-        height={window.innerHeight * 0.9}
+        width={window.innerWidth * 0.925}
+        height={window.innerHeight * 0.925}
         onMouseDown={handleMouseDown}
         onMousemove={handleMouseMove}
         onMouseup={handleMouseUp}
