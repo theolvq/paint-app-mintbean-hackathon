@@ -5,6 +5,12 @@ import Link from 'next/link';
 const Cards = () => {
   return (
     <div className='flex flex-col items-center gap-16'>
+      <h1 className='capitalize font-semibold text-4xl sm:text-6xl text-center mt-16 text-gray-100'>
+        About{' '}
+        <span className='font-extrabold text-4xl sm:text-6xl bg-gradient-to-br from-violet-600 to-cyan-400 via-indigo-600   bg-clip-text text-transparent'>
+          paint!
+        </span>
+      </h1>
       <div className='card sm:flex-row-reverse'>
         <div className='w-full'>
           <h2 className='text-2xl mb-4 text-gray-600'>Be creative</h2>

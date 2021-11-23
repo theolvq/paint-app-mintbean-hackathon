@@ -3,7 +3,12 @@ import Image from 'next/image';
 const Team: FC = () => {
   return (
     <section className='flex flex-col items-center max-w-screen-lg'>
-      <h3 className='text-3xl font-bold mb-16'>Meet the team!</h3>
+      <h2 className='text-4xl sm:text-6xl font-semibold mb-16 text-gray-100'>
+        Meet the{' '}
+        <span className='font-extrabold text-4xl sm:text-6xl bg-gradient-to-br from-violet-600 to-cyan-400 via-indigo-600   bg-clip-text text-transparent'>
+          team!
+        </span>
+      </h2>
       <ul className='flex sm:flex-row flex-col items-center gap-32'>
         <li className='team-card'>
           <div className='w-32 h-32 mb-8'>

@@ -33,6 +33,17 @@ const Header: FC = () => {
               <a>Paint!</a>
             </Link>
           </li>
+          <li
+            className={`hover:border-pink-400 border-b-4 transition-all ${
+              router.pathname === '/about'
+                ? 'border-pink-400'
+                : 'border-transparent'
+            }`}
+          >
+            <Link href='/about'>
+              <a>about</a>
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>

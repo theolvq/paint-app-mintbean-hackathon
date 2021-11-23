@@ -19,7 +19,10 @@ const Layout: FC<IProps> = ({ children }) => {
         <link rel='icon' href='/favicon.svg' />
       </Head>
       <Header />
-      {children}
+      <main className='min-h-screen flex flex-col items-center gap-16 pb-32 bg-gradient-to-br from-cyan-300 to-violet-500 via-fuschia-400'>
+        {children}
+      </main>
+
       <Footer />
     </>
   );
