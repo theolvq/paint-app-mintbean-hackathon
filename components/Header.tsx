@@ -7,8 +7,8 @@ const Header: FC = () => {
   const router = useRouter();
 
   return (
-    <header className='flex items-center justify-center  sticky top-0 w-full h-16 bg-gray-100 z-50 uppercase font-semibold text-xl shadow-md'>
-      <nav className='flex w-full max-w-6xl px-8'>
+    <header className='flex items-center justify-center sticky top-0 w-full h-16 bg-gray-100 z-50 uppercase font-semibold text-xl shadow-md px-8'>
+      <nav className='flex w-full max-w-6xl'>
         <div className='w-12'>
           <Image src='/logo.svg' alt='logo' width={64} height={64} />
         </div>

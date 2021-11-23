@@ -4,7 +4,7 @@ import Image from 'next/image';
 const IntroBlob: FC = () => {
   return (
     <>
-      <div className='max-w-6xl flex  items-center gap-16 px-8 text-gray-50 text-lg'>
+      <div className='max-w-6xl flex flex-col sm:flex-row  items-center gap-16 px-8 text-gray-50 text-lg'>
         <div className='w-full'>
           <h2 className='text-2xl font-bold tracking-wider mb-4 text-gray-800'>
             Paint!
@@ -19,16 +19,15 @@ const IntroBlob: FC = () => {
               Mintbean
             </a>
             . The requirements stated :
-            <blockquote className='italic text-gray-100 my-1 w-5/6 mx-auto'>
+            <blockquote className='italic text-gray-100 my-1'>
               &#34;As a user, I can drag my mouse across the screen to make
               free-form lines.&#34;
             </blockquote>{' '}
             <p className='text-center '>AND/OR</p>
-            <blockquote className='italic text-gray-100 mt-1 mb-2 w-5/6 mx-auto'>
+            <blockquote className='italic text-gray-100 my-1'>
               &#34;As a user, I can click areas of the screen with my mouse to
               fill them with a color, texture or pattern.&#34;
             </blockquote>
-            <p>As this was a solo project, I chose to go for the former.</p>
           </p>
         </div>
         <div className='image'>
@@ -40,7 +39,7 @@ const IntroBlob: FC = () => {
           />
         </div>
       </div>
-      <div className='max-w-6xl flex flex-row-reverse items-center gap-16 px-8 text-gray-50 text-lg'>
+      <div className='max-w-6xl flex flex-col sm:flex-row-reverse items-center gap-16 px-8 text-gray-50 text-lg'>
         <div className='w-full'>
           <h2 className='text-2xl font-bold tracking-wider mb-4 text-gray-800'>
             Code!
