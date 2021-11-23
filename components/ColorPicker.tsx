@@ -11,7 +11,7 @@ interface IProps {
 
 const ColorPicker: FC<IProps> = ({ color, setColor }) => {
   return (
-    <Menu as='div' className='relative'>
+    <Menu as='div' className='relative z-50'>
       {({ open }) => (
         <>
           {' '}

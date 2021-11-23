@@ -30,7 +30,7 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
   return (
     <Listbox
       as='div'
-      className='relative'
+      className='relative z-50'
       value={strokeWidth}
       onChange={setStrokeWidth}
     >
