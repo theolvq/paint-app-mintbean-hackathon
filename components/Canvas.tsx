@@ -110,6 +110,8 @@ const Canvas: FC<IProps> = ({
   const handleMouseMove = (e: KonvaEvent) => {
     if (isMouseEvent(e)) {
       setCursorPosition({ x: e.evt.clientX, y: e.evt.clientY });
+    } else {
+      e.evt.preventDefault();
     }
     if (!isDrawing) {
       return;

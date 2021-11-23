@@ -56,7 +56,7 @@ const ToolPicker: FC<IProps> = ({ tool, setTool }) => {
     }
   };
   return (
-    <Listbox as='div' className='relative z-50' value={tool} onChange={setTool}>
+    <Listbox as='div' className='relative z-40' value={tool} onChange={setTool}>
       <Listbox.Button
         className='btn group '
         defaultValue={tool}

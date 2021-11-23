@@ -54,7 +54,7 @@ const StrokeWidthPicker: FC<IProps> = ({ strokeWidth, setStrokeWidth }) => {
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
-        <Listbox.Options className='absolute z-50 w-12'>
+        <Listbox.Options className='absolute t-0 z-50 w-12'>
           {options.map((option) => (
             <Listbox.Option key={option} value={option}>
               {({ active, selected }) => (
