@@ -17,6 +17,8 @@ interface IProps {
 
 type KonvaEvent = KonvaEventObject<MouseEvent | TouchEvent>;
 
+type KonvaMouseEvent = KonvaEventObject<MouseEvent>;
+
 const Canvas: FC<IProps> = ({
   strokeColor,
   tool,
@@ -52,6 +54,7 @@ const Canvas: FC<IProps> = ({
   const drawLine = (pointerPosition: Vector2d) => {
     if (!lines.at(-1)) return;
     const lastLine = lines.at(-1)!;
+    lastLine.tool = tool;
     lastLine.points = lastLine.points.concat([
       pointerPosition.x,
       pointerPosition.y,
@@ -102,22 +105,21 @@ const Canvas: FC<IProps> = ({
     startShape(pointerPosition);
   };
 
-  type KonvaMouseEvent = KonvaEventObject<MouseEvent>;
-
   const isMouseEvent = (tbd: KonvaEvent): tbd is KonvaMouseEvent =>
     (tbd as KonvaMouseEvent).type ? true : false;
 
   const handleMouseMove = (e: KonvaEvent) => {
     if (isMouseEvent(e)) {
       setCursorPosition({ x: e.evt.clientX, y: e.evt.clientY });
-    } else {
-      e.evt.preventDefault();
     }
     if (!isDrawing) {
       return;
     }
+    if (!isMouseEvent(e)) {
+      e.evt.preventDefault();
+    }
     const pointerPosition = e.target.getStage()!.getPointerPosition()!;
-    if (tool === 'pen') {
+    if (tool === 'pen' || tool === 'eraser') {
       drawLine(pointerPosition);
     }
     if (tool.includes('rectangle')) {
@@ -166,20 +168,6 @@ const Canvas: FC<IProps> = ({
         onTouchEnd={handleMouseUp}
       >
         <Layer>
-          {lines.map((line, i) => (
-            <Line
-              key={i}
-              points={line.points}
-              stroke={line.strokeColor}
-              strokeWidth={line.strokeWidth}
-              tension={0.5}
-              lineCap='round'
-              globalCompositeOperation={
-                line.tool === 'eraser' ? 'destination-out' : 'source-over'
-              }
-            />
-          ))}
-
           {currentShape
             .filter((_, i) => i >= currentShape.length - 1)
             .map((shape, i) => {
@@ -258,6 +246,19 @@ const Canvas: FC<IProps> = ({
               );
             }
           })}
+          {lines.map((line, i) => (
+            <Line
+              key={i}
+              points={line.points}
+              stroke={line.strokeColor}
+              strokeWidth={line.strokeWidth}
+              tension={0.5}
+              lineCap='round'
+              globalCompositeOperation={
+                line.tool === 'eraser' ? 'destination-out' : 'source-over'
+              }
+            />
+          ))}
         </Layer>
       </Stage>
     </div>

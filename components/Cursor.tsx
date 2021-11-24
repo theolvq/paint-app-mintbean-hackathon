@@ -25,7 +25,7 @@ const Cursor: FC<IProps> = ({
     border: `${
       tool.includes('rectangle') || tool.includes('circle')
         ? 'none'
-        : `1px solid ${strokeColor}`
+        : `1px solid ${strokeColor === '#ffffff' ? '#000000' : strokeColor}`
     } `,
     left: cursorPosition.x! - cursorRadius / 2,
     top: cursorPosition.y! - cursorRadius / 2,

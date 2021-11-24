@@ -4,6 +4,12 @@ import Image from 'next/image';
 const IntroBlob: FC = () => {
   return (
     <>
+      <h1 className='capitalize font-semibold text-4xl sm:text-6xl text-center mt-16 text-gray-100'>
+        About{' '}
+        <span className='font-extrabold text-4xl sm:text-6xl bg-gradient-to-br from-violet-600 to-cyan-400 via-indigo-600   bg-clip-text text-transparent'>
+          paint!
+        </span>
+      </h1>
       <div className='max-w-6xl flex flex-col sm:flex-row  items-center gap-16 px-8 text-gray-50 text-lg'>
         <div className='w-full'>
           <h2 className='text-2xl font-bold tracking-wider mb-4 text-gray-800'>

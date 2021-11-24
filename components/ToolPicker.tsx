@@ -55,6 +55,10 @@ const ToolPicker: FC<IProps> = ({ tool, setTool }) => {
         return tool;
     }
   };
+
+  const handleToolChange = () => {
+    setTool(tool);
+  };
   return (
     <Listbox as='div' className='relative z-40' value={tool} onChange={setTool}>
       <Listbox.Button

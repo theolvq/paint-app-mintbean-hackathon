@@ -11,7 +11,9 @@ const Home: NextPage = () => {
   return (
     <>
       <Title />
+      <Cards />
       <IntroBlob />
+      <Team />
     </>
   );
 };

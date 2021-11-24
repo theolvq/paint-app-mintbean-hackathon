@@ -3,18 +3,23 @@ import { mdiEraserVariant } from '@mdi/js';
 import { Icon } from '@mdi/react';
 
 interface IProps {
+  tool: string;
   color: string;
   setColor: Dispatch<SetStateAction<string>>;
+  setTool: Dispatch<SetStateAction<string>>;
 }
 
-const Eraser: FC<IProps> = ({ setColor, color }) => {
+const Eraser: FC<IProps> = ({ setColor, color, setTool, tool }) => {
   const [previousColor, setPreviousColor] = useState('');
+  const [previousTool, setPreviousTool] = useState('');
 
   const handleClick = () => {
-    if (color !== '#ffffff') {
-      setPreviousColor(color);
-      setColor('#ffffff');
+    setPreviousTool(tool);
+    setPreviousColor(color);
+    if (tool !== 'eraser') {
+      setTool('eraser');
     } else {
+      setTool(previousTool);
       setColor(previousColor);
     }
   };

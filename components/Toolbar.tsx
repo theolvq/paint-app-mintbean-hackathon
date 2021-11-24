@@ -32,7 +32,12 @@ const Toolbar: FC<IProps> = ({
         setStrokeWidth={setStrokeWidth}
       />
       <ToolPicker tool={tool} setTool={setTool} />
-      <Eraser setColor={setStrokeColor} color={strokeColor} />
+      <Eraser
+        setColor={setStrokeColor}
+        color={strokeColor}
+        setTool={setTool}
+        tool={tool}
+      />
       <Delete clearCanvas={clearCanvas} />
     </div>
   );
